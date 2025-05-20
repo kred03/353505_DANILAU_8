@@ -1,0 +1,24 @@
+Total sentences: 9
+Declarative: 1
+Interrogative: 1
+Exclamatory: 2
+Average sentence length (chars): 25.56
+Average word length (chars): 4.02
+Number of smileys: 1
+Words with uppercase letters and digits:
+C00l_Pass
+
+Password test samples:
+C00l_Pass: ✔️
+SupperPas1: ✔️
+Cool_pass: ❌
+C00l: ❌
+
+All-uppercase words count: 2
+Longest word starting with 'l': Looooooooooooooong
+Repeated words:
+s
+test
+this
+is
+a
