@@ -1,0 +1,26 @@
+{% extends 'core/base.html' %}
+{% block title %}Интересное - {{ block.super }}{% endblock %}
+{% block content %}
+<div class="container mt-4">
+    <h1 class="mb-4 text-center">Интересное</h1>
+    <div class="row mb-5">
+        <div class="col-md-6 mx-auto">
+            <div class="card shadow-sm mb-4">
+                <div class="card-body text-center">
+                    <h4 class="mb-3">Факт о животном</h4>
+                    {% if animal_image %}
+                        <img src="{{ animal_image }}" alt="Animal" class="img-fluid mb-3" style="max-height:200px;">
+                    {% endif %}
+                    <p class="lead">{{ animal_fact }}</p>
+                </div>
+            </div>
+            <div class="card shadow-sm">
+                <div class="card-body text-center">
+                    <h4 class="mb-3">Погода в зоопарке</h4>
+                    <p class="lead">{{ weather }}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %} 

@@ -1,0 +1,45 @@
+{% extends 'core/base.html' %}
+
+{% block content %}
+<div class="container mt-4">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card shadow">
+                <div class="card-body">
+                    <h1 class="card-title mb-4">{% if form.instance.pk %}Редактировать сотрудника{% else %}Добавить сотрудника{% endif %}</h1>
+                    <form method="post" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        {{ form.non_field_errors }}
+                        <div class="mb-3">
+                            {{ form.user.label_tag }}
+                            {{ form.user }}
+                        </div>
+                        <div class="mb-3">
+                            {{ form.phone.label_tag }}
+                            {{ form.phone }}
+                        </div>
+                        <div class="mb-3">
+                            {{ form.position.label_tag }}
+                            {{ form.position }}
+                        </div>
+                        <div class="mb-3">
+                            {{ form.photo.label_tag }}
+                            {{ form.photo }}
+                        </div>
+                        <div class="mb-3">
+                            {{ form.assigned_animals.label_tag }}
+                            {{ form.assigned_animals }}
+                        </div>
+                        <div class="mb-3">
+                            {{ form.assigned_enclosures.label_tag }}
+                            {{ form.assigned_enclosures }}
+                        </div>
+                        <button type="submit" class="btn btn-primary">Сохранить</button>
+                        <a href="{% url 'employee-list' %}" class="btn btn-secondary">Назад</a>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %} 

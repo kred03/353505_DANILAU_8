@@ -1,0 +1,22 @@
+<svg width="300" height="200" viewBox="0 0 300 200" xmlns="http://www.w3.org/2000/svg">
+  <!-- Фон -->
+  <rect width="300" height="200" fill="#F0F8FF" rx="10"/>
+  
+  <!-- Иконка экскурсии -->
+  <g transform="translate(50, 30)">
+    <!-- Автобус -->
+    <rect x="20" y="40" width="60" height="30" fill="#4169E1" rx="5"/>
+    <rect x="25" y="35" width="50" height="20" fill="#87CEEB" rx="3"/>
+    <circle cx="35" cy="75" r="8" fill="#333"/>
+    <circle cx="65" cy="75" r="8" fill="#333"/>
+    <rect x="30" y="25" width="40" height="15" fill="#FFD700" rx="2"/>
+  </g>
+  
+  <!-- Текст -->
+  <text x="150" y="80" font-family="Arial, sans-serif" font-size="18" font-weight="bold" fill="#333" text-anchor="middle">ЭКСКУРСИЯ ПО ЗООПАРКУ</text>
+  <text x="150" y="105" font-family="Arial, sans-serif" font-size="12" fill="#666" text-anchor="middle">Увлекательная прогулка</text>
+  <text x="150" y="125" font-family="Arial, sans-serif" font-size="12" fill="#666" text-anchor="middle">с гидом-экспертом</text>
+  
+  <!-- Цена -->
+  <text x="150" y="160" font-family="Arial, sans-serif" font-size="16" font-weight="bold" fill="#228B22" text-anchor="middle">от 15 BYN</text>
+</svg>
