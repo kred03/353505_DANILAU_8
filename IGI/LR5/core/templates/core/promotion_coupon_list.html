@@ -1,0 +1,94 @@
+{% extends 'core/base.html' %}
+
+{% block title %}Акции и купоны - {{ block.super }}{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h1 class="text-center mb-5">Акции и купоны</h1>
+
+    <!-- Промокоды -->
+    <div class="row mb-5">
+        <div class="col-12">
+            <h2 class="text-center mb-4">Действующие промокоды</h2>
+        </div>
+        {% for promo in promos %}
+            {% if promo.discount_percent %}
+            <div class="col-md-4 mb-4">
+                <div class="card h-100 shadow-sm">
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between align-items-center mb-3">
+                            <h5 class="card-title mb-0">{{ promo.code }}</h5>
+                            <span class="badge bg-success">-{{ promo.discount_percent }}%</span>
+                        </div>
+                        <p class="card-text">{{ promo.description }}</p>
+                        <div class="mt-auto">
+                            <small class="text-muted">Действует до {{ promo.valid_until|date:"d.m.Y" }}</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% if user.is_superuser %}
+                <a href="{% url 'promotion-update' promo.pk %}" class="btn btn-outline-secondary btn-sm">Редактировать</a>
+                <a href="{% url 'promotion-delete' promo.pk %}" class="btn btn-outline-danger btn-sm">Удалить</a>
+            {% endif %}
+            {% endif %}
+        {% empty %}
+        <div class="col-12">
+            <p class="text-center text-muted">На данный момент нет действующих промокодов</p>
+        </div>
+        {% endfor %}
+    </div>
+
+    <!-- Купоны -->
+    <div class="row">
+        <div class="col-12">
+            <h2 class="text-center mb-4">Действующие купоны</h2>
+        </div>
+        {% for promo in promos %}
+            {% if promo.fixed_discount %}
+            <div class="col-md-4 mb-4">
+                <div class="card h-100 shadow-sm">
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between align-items-center mb-3">
+                            <h5 class="card-title mb-0">{{ promo.code }}</h5>
+                            <span class="badge bg-primary">-{{ promo.fixed_discount }} руб.</span>
+                        </div>
+                        <p class="card-text">{{ promo.description }}</p>
+                        <div class="mt-auto">
+                            <small class="text-muted">Действует до {{ promo.valid_until|date:"d.m.Y" }}
+                                {% if promo.one_time_use %}<br>Одноразовый купон{% endif %}
+                            </small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% if user.is_superuser %}
+                <a href="{% url 'coupon-update' promo.pk %}" class="btn btn-outline-secondary btn-sm">Редактировать</a>
+                <a href="{% url 'coupon-delete' promo.pk %}" class="btn btn-outline-danger btn-sm">Удалить</a>
+            {% endif %}
+            {% endif %}
+        {% empty %}
+        <div class="col-12">
+            <p class="text-center text-muted">На данный момент нет действующих купонов</p>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+{% if user.is_superuser %}
+    <a href="{% url 'promotion-create' %}" class="btn btn-primary mb-3">Добавить промокод</a>
+    <a href="{% url 'coupon-create' %}" class="btn btn-primary mb-3">Добавить купон</a>
+{% endif %}
+
+<style>
+.card {
+    transition: transform 0.2s ease-in-out;
+}
+.card:hover {
+    transform: translateY(-5px);
+}
+.badge {
+    font-size: 1rem;
+}
+</style>
+{% endblock %} 

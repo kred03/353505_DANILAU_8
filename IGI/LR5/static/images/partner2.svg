@@ -1,0 +1,15 @@
+<svg width="200" height="100" viewBox="0 0 200 100" xmlns="http://www.w3.org/2000/svg">
+  <!-- Фон -->
+  <rect width="200" height="100" fill="#F5F5F5" rx="5"/>
+  
+  <!-- Логотип партнера -->
+  <g transform="translate(20, 20)">
+    <rect x="10" y="10" width="40" height="40" fill="#32CD32" rx="5"/>
+    <text x="30" y="35" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="white" text-anchor="middle">ZOO</text>
+  </g>
+  
+  <!-- Текст -->
+  <text x="100" y="35" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="#333">ЗооМир</text>
+  <text x="100" y="50" font-family="Arial, sans-serif" font-size="10" fill="#666">Международная сеть зоопарков</text>
+  <text x="100" y="65" font-family="Arial, sans-serif" font-size="10" fill="#666">www.zoomir.org</text>
+</svg>

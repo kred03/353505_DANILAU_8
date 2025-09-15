@@ -1,0 +1,129 @@
+{% extends 'core/base.html' %}
+{% load static %}
+
+{% block title %}{{ term.term }} - Словарь терминов - Зоопарк{% endblock %}
+{% block description %}{{ term.definition|truncatewords:20 }}{% endblock %}
+
+{% block content %}
+<main role="main">
+    <div class="container-fluid px-2 px-md-4">
+        <!-- Хлебные крошки -->
+        <nav aria-label="breadcrumb" class="mb-4">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="{% url 'home' %}">Главная</a></li>
+                <li class="breadcrumb-item"><a href="{% url 'dictionary-list' %}">Словарь терминов</a></li>
+                <li class="breadcrumb-item active" aria-current="page">{{ term.term }}</li>
+            </ol>
+        </nav>
+
+        <div class="row">
+            <div class="col-lg-8">
+                <article class="card shadow-sm">
+                    <div class="card-header">
+                        <h1 class="h3 mb-0">{{ term.term }}</h1>
+                    </div>
+                    <div class="card-body">
+                        <div class="term-definition">
+                            {{ term.definition|linebreaks }}
+                        </div>
+                        
+                        <div class="term-meta mt-4 pt-3 border-top">
+                            <small class="text-muted">
+                                <i class="bi bi-calendar" aria-hidden="true"></i>
+                                Добавлено: 
+                                <time datetime="{{ term.created_at|date:'c' }}">
+                                    {{ term.created_at|date:"d.m.Y в H:i" }}
+                                </time>
+                            </small>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Навигация -->
+                <nav aria-label="Навигация по терминам" class="mt-4">
+                    <div class="d-flex justify-content-between">
+                        <a href="{% url 'dictionary-list' %}" class="btn btn-outline-secondary">
+                            <i class="bi bi-arrow-left" aria-hidden="true"></i>
+                            Вернуться к списку
+                        </a>
+                        <a href="{% url 'dictionary-list' %}" class="btn btn-primary">
+                            <i class="bi bi-list" aria-hidden="true"></i>
+                            Все термины
+                        </a>
+                    </div>
+                </nav>
+            </div>
+
+            <div class="col-lg-4">
+                <aside class="card shadow-sm">
+                    <div class="card-header">
+                        <h3 class="h5 mb-0">Похожие термины</h3>
+                    </div>
+                    <div class="card-body">
+                        <ul class="list-unstyled mb-0">
+                            <li class="mb-2">
+                                <a href="#" class="text-decoration-none">
+                                    <i class="bi bi-arrow-right" aria-hidden="true"></i>
+                                    Зоопарк
+                                </a>
+                            </li>
+                            <li class="mb-2">
+                                <a href="#" class="text-decoration-none">
+                                    <i class="bi bi-arrow-right" aria-hidden="true"></i>
+                                    Вольер
+                                </a>
+                            </li>
+                            <li class="mb-2">
+                                <a href="#" class="text-decoration-none">
+                                    <i class="bi bi-arrow-right" aria-hidden="true"></i>
+                                    Экскурсия
+                                </a>
+                            </li>
+                            <li class="mb-2">
+                                <a href="#" class="text-decoration-none">
+                                    <i class="bi bi-arrow-right" aria-hidden="true"></i>
+                                    Кормление
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </aside>
+
+                <aside class="card shadow-sm mt-4">
+                    <div class="card-header">
+                        <h3 class="h5 mb-0">Полезные ссылки</h3>
+                    </div>
+                    <div class="card-body">
+                        <ul class="list-unstyled mb-0">
+                            <li class="mb-2">
+                                <a href="{% url 'home' %}" class="text-decoration-none">
+                                    <i class="bi bi-house" aria-hidden="true"></i>
+                                    Главная страница
+                                </a>
+                            </li>
+                            <li class="mb-2">
+                                <a href="{% url 'about-company' %}" class="text-decoration-none">
+                                    <i class="bi bi-info-circle" aria-hidden="true"></i>
+                                    О компании
+                                </a>
+                            </li>
+                            <li class="mb-2">
+                                <a href="{% url 'contact-list' %}" class="text-decoration-none">
+                                    <i class="bi bi-telephone" aria-hidden="true"></i>
+                                    Контакты
+                                </a>
+                            </li>
+                            <li class="mb-2">
+                                <a href="{% url 'faq-list' %}" class="text-decoration-none">
+                                    <i class="bi bi-question-circle" aria-hidden="true"></i>
+                                    Часто задаваемые вопросы
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </aside>
+            </div>
+        </div>
+    </div>
+</main>
+{% endblock %}

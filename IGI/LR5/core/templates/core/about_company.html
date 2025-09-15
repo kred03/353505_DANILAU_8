@@ -1,0 +1,276 @@
+{% extends 'core/base.html' %}
+{% load static %}
+
+{% block title %}О компании - Зоопарк{% endblock %}
+{% block description %}Информация о зоопарке - история, миссия, сертификаты и реквизиты{% endblock %}
+
+{% block content %}
+<main role="main">
+    <div class="container-fluid px-2 px-md-4">
+        <header class="text-center mb-5">
+            <h1>О нашей компании</h1>
+            <p class="lead">Узнайте больше о зоопарке, нашей миссии и истории</p>
+        </header>
+
+        {% if company_info %}
+            <!-- Основная информация -->
+            <section class="mb-5">
+                <div class="card shadow-sm">
+                    <div class="card-body">
+                        <div class="row align-items-center">
+                            {% if company_info.logo %}
+                            <div class="col-md-3 text-center mb-3 mb-md-0">
+                                <img src="{% static 'images/logos/logo zoo.jpg' %}" class="img-fluid" alt="Логотип зоопарка" style="max-height: 150px;">
+                            </div>
+                            {% endif %}
+                            <div class="col-md-{% if company_info.logo %}9{% else %}12{% endif %}">
+                                <h2>{{ company_info.title }}</h2>
+                                <div class="lead">{{ company_info.description|linebreaks }}</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Видео -->
+            {% if company_info.video_url or company_info.video_file %}
+            <section class="mb-5">
+                <div class="card shadow-sm">
+                    <div class="card-header">
+                        <h2 class="h5 mb-0">Видео о зоопарке</h2>
+                    </div>
+                    <div class="card-body">
+                        <div class="ratio ratio-16x9">
+                            {% if company_info.video_url %}
+                                <iframe src="{{ company_info.video_url }}" title="Видео о зоопарке" allowfullscreen></iframe>
+                            {% elif company_info.video_file %}
+                                <video controls>
+                                    <source src="{{ company_info.video_file.url }}" type="video/mp4">
+                                    Ваш браузер не поддерживает видео.
+                                </video>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </section>
+            {% endif %}
+
+            <!-- Аудио -->
+            <section class="mb-5">
+                <div class="card shadow-sm">
+                    <div class="card-header">
+                        <h2 class="h5 mb-0">Звуки зоопарка</h2>
+                    </div>
+                    <div class="card-body">
+                        <p class="text-muted mb-3">Послушайте звуки природы и животных нашего зоопарка</p>
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <h6>Звуки птиц</h6>
+                                <audio controls class="w-100">
+                                    <source src="{% static 'audio/birds.mp3' %}" type="audio/mpeg">
+                                    <source src="{% static 'audio/birds.ogg' %}" type="audio/ogg">
+                                    Ваш браузер не поддерживает аудио элемент.
+                                </audio>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <h6>Звуки млекопитающих</h6>
+                                <audio controls class="w-100">
+                                    <source src="{% static 'audio/mammals.mp3' %}" type="audio/mpeg">
+                                    <source src="{% static 'audio/mammals.ogg' %}" type="audio/ogg">
+                                    Ваш браузер не поддерживает аудио элемент.
+                                </audio>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- История компании -->
+            {% if company_history %}
+            <section class="mb-5">
+                <div class="card shadow-sm">
+                    <div class="card-header">
+                        <h2 class="h5 mb-0">История компании</h2>
+                    </div>
+                    <div class="card-body">
+                        <div class="timeline">
+                            {% for history_item in company_history %}
+                            <div class="timeline-item mb-4">
+                                <div class="row">
+                                    <div class="col-md-2">
+                                        <div class="timeline-year text-center">
+                                            <span class="badge bg-primary fs-5">{{ history_item.year }}</span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-10">
+                                        <div class="timeline-content">
+                                            <h4 class="h6">{{ history_item.title }}</h4>
+                                            <p>{{ history_item.description|linebreaks }}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </section>
+            {% endif %}
+
+            <!-- Реквизиты -->
+            {% if company_info.requisites %}
+            <section class="mb-5">
+                <div class="card shadow-sm">
+                    <div class="card-header">
+                        <h2 class="h5 mb-0">Реквизиты</h2>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-8">
+                                <div class="requisites-content">
+                                    {{ company_info.requisites|linebreaks }}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            {% endif %}
+
+            <!-- Таблица с объединенными ячейками -->
+            <section class="mb-5">
+                <div class="card shadow-sm">
+                    <div class="card-header">
+                        <h2 class="h5 mb-0">Статистика зоопарка</h2>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-bordered table-striped" role="table" aria-label="Статистика зоопарка">
+                                <caption class="visually-hidden">Подробная статистика зоопарка по категориям животных и сотрудникам</caption>
+                                <thead>
+                                    <tr>
+                                        <th id="category" scope="col" rowspan="2">Категория</th>
+                                        <th id="animals" scope="col" colspan="2">Животные</th>
+                                        <th id="staff" scope="col" colspan="2">Сотрудники</th>
+                                    </tr>
+                                    <tr>
+                                        <th id="total-animals" scope="col" headers="animals">Всего</th>
+                                        <th id="endangered" scope="col" headers="animals">Под угрозой</th>
+                                        <th id="total-staff" scope="col" headers="staff">Всего</th>
+                                        <th id="veterinarians" scope="col" headers="staff">Ветеринары</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <th id="mammals" scope="row" headers="category">Млекопитающие</th>
+                                        <td headers="mammals total-animals">45</td>
+                                        <td headers="mammals endangered">12</td>
+                                        <td headers="mammals total-staff">8</td>
+                                        <td headers="mammals veterinarians">3</td>
+                                    </tr>
+                                    <tr>
+                                        <th id="birds" scope="row" headers="category">Птицы</th>
+                                        <td headers="birds total-animals">32</td>
+                                        <td headers="birds endangered">8</td>
+                                        <td headers="birds total-staff">6</td>
+                                        <td headers="birds veterinarians">2</td>
+                                    </tr>
+                                    <tr>
+                                        <th id="reptiles" scope="row" headers="category">Рептилии</th>
+                                        <td headers="reptiles total-animals">18</td>
+                                        <td headers="reptiles endangered">5</td>
+                                        <td headers="reptiles total-staff">4</td>
+                                        <td headers="reptiles veterinarians">1</td>
+                                    </tr>
+                                    <tr>
+                                        <th id="amphibians" scope="row" headers="category">Амфибии</th>
+                                        <td headers="amphibians total-animals">15</td>
+                                        <td headers="amphibians endangered">3</td>
+                                        <td headers="amphibians total-staff">3</td>
+                                        <td headers="amphibians veterinarians">1</td>
+                                    </tr>
+                                    <tr>
+                                        <th id="total" scope="row" headers="category">Итого</th>
+                                        <td headers="total total-animals"><strong>110</strong></td>
+                                        <td headers="total endangered"><strong>28</strong></td>
+                                        <td headers="total total-staff"><strong>21</strong></td>
+                                        <td headers="total veterinarians"><strong>7</strong></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Сертификат -->
+            {% if company_info.certificate_text or company_info.certificate_image %}
+            <section class="mb-5">
+                <div class="card shadow-sm">
+                    <div class="card-header">
+                        <h2 class="h5 mb-0">Сертификаты и лицензии</h2>
+                    </div>
+                    <div class="card-body">
+                        {% if company_info.certificate_image %}
+                        <div class="text-center mb-4">
+                            <img src="{{ company_info.certificate_image.url }}" class="img-fluid rounded shadow" alt="Сертификат" style="max-height: 400px;">
+                        </div>
+                        {% endif %}
+                        
+                        {% if company_info.certificate_text %}
+                        <div class="certificate-text">
+                            <h3>Сертификат о членстве в РТА (Реестр туристических агентств) Ассоциации ТУРПОМОЩЬ</h3>
+                            <div class="certificate-content">
+                                {{ company_info.certificate_text|linebreaks }}
+                            </div>
+                        </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </section>
+            {% endif %}
+        {% else %}
+            <div class="text-center py-5">
+                <i class="bi bi-info-circle text-muted" style="font-size: 4rem;"></i>
+                <h3 class="text-muted mt-3">Информация о компании</h3>
+                <p class="text-muted">Информация о компании пока не добавлена</p>
+            </div>
+        {% endif %}
+    </div>
+</main>
+
+<style>
+.timeline-item {
+    position: relative;
+}
+
+.timeline-item:not(:last-child)::after {
+    content: '';
+    position: absolute;
+    left: 15px;
+    top: 40px;
+    bottom: -20px;
+    width: 2px;
+    background-color: #dee2e6;
+}
+
+.timeline-year {
+    position: relative;
+    z-index: 1;
+}
+
+.certificate-content {
+    background-color: #f8f9fa;
+    padding: 2rem;
+    border-radius: 0.5rem;
+    border: 2px solid #dee2e6;
+    font-family: 'Times New Roman', serif;
+    line-height: 1.6;
+}
+
+.requisites-content {
+    font-family: monospace;
+    white-space: pre-line;
+}
+</style>
+{% endblock %}

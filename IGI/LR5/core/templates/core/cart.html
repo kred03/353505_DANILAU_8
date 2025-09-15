@@ -1,0 +1,120 @@
+{% extends 'core/base.html' %}
+{% load static %}
+
+{% block title %}Корзина покупок - Зоопарк{% endblock %}
+{% block description %}Ваша корзина покупок в зоопарке{% endblock %}
+
+{% block content %}
+<main role="main">
+    <div class="container-fluid px-2 px-md-4">
+        <header class="text-center mb-5">
+            <h1>Корзина покупок</h1>
+            <p class="lead">Проверьте выбранные товары и оформите заказ</p>
+        </header>
+
+        {% if cart_items %}
+            <div class="row">
+                <div class="col-lg-8">
+                    <section class="cart-items">
+                        <h2>Товары в корзине</h2>
+                        {% for item in cart_items %}
+                        <article class="card mb-3 shadow-sm">
+                            <div class="card-body">
+                                <div class="row align-items-center">
+                                    <div class="col-md-2">
+                                        {% if item.product.image %}
+                                            <img src="{{ item.product.image.url }}" class="img-fluid rounded" alt="{{ item.product.name }}" style="height: 80px; object-fit: cover;">
+                                        {% else %}
+                                            <div class="bg-light d-flex align-items-center justify-content-center rounded" style="height: 80px;">
+                                                <i class="bi bi-image text-muted"></i>
+                                            </div>
+                                        {% endif %}
+                                    </div>
+                                    <div class="col-md-4">
+                                        <h5 class="card-title mb-1">{{ item.product.name }}</h5>
+                                        <p class="text-muted small mb-0">{{ item.product.category }}</p>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <span class="h6">{{ item.product.price }} ₽</span>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <form method="post" action="{% url 'update-cart-item' item.pk %}" class="d-flex align-items-center">
+                                            {% csrf_token %}
+                                            <input type="number" name="quantity" value="{{ item.quantity }}" min="1" max="99" class="form-control form-control-sm me-2" style="width: 80px;">
+                                            <button type="submit" class="btn btn-sm btn-outline-primary">
+                                                <i class="bi bi-arrow-clockwise" aria-hidden="true"></i>
+                                                <span class="visually-hidden">Обновить</span>
+                                            </button>
+                                        </form>
+                                    </div>
+                                    <div class="col-md-2 text-end">
+                                        <div class="h6 text-primary">{{ item.total_price }} ₽</div>
+                                        <a href="{% url 'remove-from-cart' item.pk %}" class="btn btn-sm btn-outline-danger" onclick="return confirm('Удалить товар из корзины?')">
+                                            <i class="bi bi-trash" aria-hidden="true"></i>
+                                            <span class="visually-hidden">Удалить</span>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </article>
+                        {% endfor %}
+                    </section>
+                </div>
+
+                <div class="col-lg-4">
+                    <aside class="card shadow-sm">
+                        <div class="card-header">
+                            <h3 class="h5 mb-0">Итого</h3>
+                        </div>
+                        <div class="card-body">
+                            <dl class="row">
+                                <dt class="col-6">Товаров:</dt>
+                                <dd class="col-6">{{ cart_items|length }}</dd>
+                                
+                                <dt class="col-6">Общая сумма:</dt>
+                                <dd class="col-6 h5 text-primary">{{ total_amount }} ₽</dd>
+                            </dl>
+                            
+                            <div class="d-grid gap-2 mt-4">
+                                <a href="{% url 'checkout' %}" class="btn btn-success btn-lg">
+                                    <i class="bi bi-credit-card" aria-hidden="true"></i>
+                                    Оплатить
+                                </a>
+                                <a href="{% url 'product-list' %}" class="btn btn-outline-primary">
+                                    <i class="bi bi-arrow-left" aria-hidden="true"></i>
+                                    Продолжить покупки
+                                </a>
+                            </div>
+                        </div>
+                    </aside>
+
+                    <!-- Промокоды -->
+                    <aside class="card shadow-sm mt-4">
+                        <div class="card-header">
+                            <h3 class="h5 mb-0">Промокод</h3>
+                        </div>
+                        <div class="card-body">
+                            <form>
+                                <div class="input-group">
+                                    <input type="text" class="form-control" placeholder="Введите промокод">
+                                    <button class="btn btn-outline-secondary" type="button">Применить</button>
+                                </div>
+                            </form>
+                        </div>
+                    </aside>
+                </div>
+            </div>
+        {% else %}
+            <div class="text-center py-5">
+                <i class="bi bi-cart-x text-muted" style="font-size: 4rem;"></i>
+                <h3 class="text-muted mt-3">Корзина пуста</h3>
+                <p class="text-muted">Добавьте товары в корзину, чтобы оформить заказ</p>
+                <a href="{% url 'product-list' %}" class="btn btn-primary btn-lg">
+                    <i class="bi bi-shop" aria-hidden="true"></i>
+                    Перейти в каталог
+                </a>
+            </div>
+        {% endif %}
+    </div>
+</main>
+{% endblock %}

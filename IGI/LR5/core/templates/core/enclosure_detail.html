@@ -1,0 +1,29 @@
+{% extends 'core/base.html' %}
+{% block title %}{{ enclosure.name }} - {{ block.super }}{% endblock %}
+{% block content %}
+<div class="container mt-4">
+    <div class="row">
+        <div class="col-md-8 mx-auto">
+            <div class="card shadow">
+                <div class="card-body">
+                    <h2 class="card-title mb-3">{{ enclosure.name }}</h2>
+                    <p><strong>Номер:</strong> {{ enclosure.number }}</p>
+                    <p><strong>Площадь:</strong> {{ enclosure.area }} м²</p>
+                    <p><strong>Водоем:</strong> {% if enclosure.has_water %}Да{% else %}Нет{% endif %}</p>
+                    <p><strong>Описание:</strong> {{ enclosure.description|default:'—' }}</p>
+                    <hr>
+                    <h5>Животные в этом помещении:</h5>
+                    <ul>
+                        {% for animal in enclosure.animal_set.all %}
+                        <li><a href="{% url 'animal-detail' animal.pk %}">{{ animal.name }} ({{ animal.species }})</a></li>
+                        {% empty %}
+                        <li class="text-muted">Нет животных в этом помещении.</li>
+                        {% endfor %}
+                    </ul>
+                    <a href="{% url 'enclosure-list' %}" class="btn btn-outline-secondary mt-3"><i class="bi bi-arrow-left"></i> К списку помещений</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %} 
