@@ -1,0 +1,145 @@
+{% extends 'core/base.html' %}
+{% load static %}
+
+{% block title %}Словарь терминов - Зоопарк{% endblock %}
+{% block description %}Словарь терминов и понятий, связанных с зоопарком и животными{% endblock %}
+
+{% block content %}
+<main role="main">
+    <div class="container-fluid px-2 px-md-4">
+        <header class="text-center mb-5">
+            <h1>Словарь терминов и понятий</h1>
+            <p class="lead">Узнайте значение специальных терминов, связанных с зоопарком</p>
+        </header>
+
+        <!-- Поиск -->
+        <section class="search-section mb-4">
+            <div class="row justify-content-center">
+                <div class="col-md-8">
+                    <form method="get" class="d-flex">
+                        <input type="text" name="search" class="form-control me-2" placeholder="Поиск по терминам..." value="{{ request.GET.search }}">
+                        <button type="submit" class="btn btn-outline-primary">
+                            <i class="bi bi-search" aria-hidden="true"></i>
+                            <span class="visually-hidden">Поиск</span>
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </section>
+
+        {% if terms %}
+            <section class="dictionary-content">
+                <div class="row">
+                    <div class="col-lg-8">
+                        <div class="terms-list">
+                            {% for term in terms %}
+                            <article class="card mb-3 shadow-sm">
+                                <div class="card-body">
+                                    <h3 class="card-title h5">
+                                        <a href="{% url 'dictionary-detail' term.pk %}" class="text-decoration-none">
+                                            {{ term.term }}
+                                        </a>
+                                    </h3>
+                                    <p class="card-text">{{ term.definition|truncatewords:30 }}</p>
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <small class="text-muted">
+                                            <time datetime="{{ term.created_at|date:'c' }}">
+                                                Добавлено: {{ term.created_at|date:"d.m.Y" }}
+                                            </time>
+                                        </small>
+                                        <a href="{% url 'dictionary-detail' term.pk %}" class="btn btn-sm btn-outline-primary">
+                                            Подробнее
+                                        </a>
+                                    </div>
+                                </div>
+                            </article>
+                            {% endfor %}
+                        </div>
+
+                        <!-- Пагинация -->
+                        {% if is_paginated %}
+                        <nav aria-label="Навигация по страницам" class="mt-5">
+                            <ul class="pagination justify-content-center">
+                                {% if page_obj.has_previous %}
+                                    <li class="page-item">
+                                        <a class="page-link" href="?page=1" aria-label="Первая страница">
+                                            <span aria-hidden="true">&laquo;&laquo;</span>
+                                        </a>
+                                    </li>
+                                    <li class="page-item">
+                                        <a class="page-link" href="?page={{ page_obj.previous_page_number }}" aria-label="Предыдущая страница">
+                                            <span aria-hidden="true">&laquo;</span>
+                                        </a>
+                                    </li>
+                                {% endif %}
+
+                                {% for num in page_obj.paginator.page_range %}
+                                    {% if page_obj.number == num %}
+                                        <li class="page-item active">
+                                            <span class="page-link">{{ num }}</span>
+                                        </li>
+                                    {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
+                                        <li class="page-item">
+                                            <a class="page-link" href="?page={{ num }}">{{ num }}</a>
+                                        </li>
+                                    {% endif %}
+                                {% endfor %}
+
+                                {% if page_obj.has_next %}
+                                    <li class="page-item">
+                                        <a class="page-link" href="?page={{ page_obj.next_page_number }}" aria-label="Следующая страница">
+                                            <span aria-hidden="true">&raquo;</span>
+                                        </a>
+                                    </li>
+                                    <li class="page-item">
+                                        <a class="page-link" href="?page={{ page_obj.paginator.num_pages }}" aria-label="Последняя страница">
+                                            <span aria-hidden="true">&raquo;&raquo;</span>
+                                        </a>
+                                    </li>
+                                {% endif %}
+                            </ul>
+                        </nav>
+                        {% endif %}
+                    </div>
+
+                    <div class="col-lg-4">
+                        <aside class="card shadow-sm">
+                            <div class="card-header">
+                                <h3 class="h5 mb-0">Алфавитный указатель</h3>
+                            </div>
+                            <div class="card-body">
+                                <div class="alphabet-index">
+                                    {% for letter in "АБВГДЕЖЗИКЛМНОПРСТУФХЦЧШЩЭЮЯ" %}
+                                    <a href="?letter={{ letter }}" class="btn btn-sm btn-outline-secondary me-1 mb-1">{{ letter }}</a>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                        </aside>
+
+                        <aside class="card shadow-sm mt-4">
+                            <div class="card-header">
+                                <h3 class="h5 mb-0">Популярные термины</h3>
+                            </div>
+                            <div class="card-body">
+                                <ul class="list-unstyled mb-0">
+                                    <li><a href="#" class="text-decoration-none">Зоопарк</a></li>
+                                    <li><a href="#" class="text-decoration-none">Вольер</a></li>
+                                    <li><a href="#" class="text-decoration-none">Экскурсия</a></li>
+                                    <li><a href="#" class="text-decoration-none">Кормление</a></li>
+                                    <li><a href="#" class="text-decoration-none">Ветеринар</a></li>
+                                </ul>
+                            </div>
+                        </aside>
+                    </div>
+                </div>
+            </section>
+        {% else %}
+            <div class="text-center py-5">
+                <i class="bi bi-book text-muted" style="font-size: 4rem;"></i>
+                <h3 class="text-muted mt-3">Термины не найдены</h3>
+                <p class="text-muted">Попробуйте изменить параметры поиска</p>
+            </div>
+        {% endif %}
+    </div>
+</main>
+{% endblock %}

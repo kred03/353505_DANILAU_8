@@ -1,0 +1,142 @@
+{% extends 'core/base.html' %}
+{% load static %}
+
+{% block title %}Каталог товаров и услуг - Зоопарк{% endblock %}
+{% block description %}Каталог товаров и услуг зоопарка - экскурсии, сувениры, билеты и многое другое{% endblock %}
+
+{% block content %}
+<main role="main">
+    <div class="container-fluid px-2 px-md-4">
+        <header class="text-center mb-5">
+            <h1>Каталог товаров и услуг</h1>
+            <p class="lead">Выберите интересующие вас товары и услуги</p>
+        </header>
+
+        <!-- Фильтры -->
+        <section class="filters mb-4">
+            <div class="row">
+                <div class="col-md-6">
+                    <form method="get" class="d-flex">
+                        <input type="text" name="search" class="form-control me-2" placeholder="Поиск товаров..." value="{{ request.GET.search }}">
+                        <button type="submit" class="btn btn-outline-primary">
+                            <i class="bi bi-search" aria-hidden="true"></i>
+                            <span class="visually-hidden">Поиск</span>
+                        </button>
+                    </form>
+                </div>
+                <div class="col-md-6">
+                    <select class="form-select" onchange="filterByCategory(this.value)">
+                        <option value="">Все категории</option>
+                        <option value="экскурсии">Экскурсии</option>
+                        <option value="сувениры">Сувениры</option>
+                        <option value="билеты">Билеты</option>
+                        <option value="услуги">Услуги</option>
+                    </select>
+                </div>
+            </div>
+        </section>
+
+        <!-- Список товаров -->
+        <section class="products">
+            {% if products %}
+                <div class="row g-4">
+                    {% for product in products %}
+                    <div class="col-md-6 col-lg-4 col-xl-3">
+                        <article class="card h-100 shadow-sm">
+                            {% if product.image %}
+                                <img src="{{ product.image.url }}" class="card-img-top" alt="{{ product.name }}" style="height: 200px; object-fit: cover;">
+                            {% else %}
+                                <div class="card-img-top bg-light d-flex align-items-center justify-content-center" style="height: 200px;">
+                                    <i class="bi bi-image text-muted" style="font-size: 3rem;"></i>
+                                </div>
+                            {% endif %}
+                            <div class="card-body d-flex flex-column">
+                                <h5 class="card-title">{{ product.name }}</h5>
+                                <p class="card-text flex-grow-1">{{ product.description|truncatewords:20 }}</p>
+                                <div class="mt-auto">
+                                    <div class="d-flex justify-content-between align-items-center mb-3">
+                                        <span class="h5 text-primary mb-0">{{ product.price }} ₽</span>
+                                        <span class="badge bg-secondary">{{ product.category }}</span>
+                                    </div>
+                                    <div class="d-grid gap-2">
+                                        <a href="{% url 'product-detail' product.pk %}" class="btn btn-primary">Подробнее</a>
+                                        {% if user.is_authenticated %}
+                                            <a href="{% url 'add-to-cart' product.pk %}" class="btn btn-outline-success">
+                                                <i class="bi bi-cart-plus" aria-hidden="true"></i> В корзину
+                                            </a>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                            </div>
+                        </article>
+                    </div>
+                    {% endfor %}
+                </div>
+
+                <!-- Пагинация -->
+                {% if is_paginated %}
+                <nav aria-label="Навигация по страницам" class="mt-5">
+                    <ul class="pagination justify-content-center">
+                        {% if page_obj.has_previous %}
+                            <li class="page-item">
+                                <a class="page-link" href="?page=1" aria-label="Первая страница">
+                                    <span aria-hidden="true">&laquo;&laquo;</span>
+                                </a>
+                            </li>
+                            <li class="page-item">
+                                <a class="page-link" href="?page={{ page_obj.previous_page_number }}" aria-label="Предыдущая страница">
+                                    <span aria-hidden="true">&laquo;</span>
+                                </a>
+                            </li>
+                        {% endif %}
+
+                        {% for num in page_obj.paginator.page_range %}
+                            {% if page_obj.number == num %}
+                                <li class="page-item active">
+                                    <span class="page-link">{{ num }}</span>
+                                </li>
+                            {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
+                                <li class="page-item">
+                                    <a class="page-link" href="?page={{ num }}">{{ num }}</a>
+                                </li>
+                            {% endif %}
+                        {% endfor %}
+
+                        {% if page_obj.has_next %}
+                            <li class="page-item">
+                                <a class="page-link" href="?page={{ page_obj.next_page_number }}" aria-label="Следующая страница">
+                                    <span aria-hidden="true">&raquo;</span>
+                                </a>
+                            </li>
+                            <li class="page-item">
+                                <a class="page-link" href="?page={{ page_obj.paginator.num_pages }}" aria-label="Последняя страница">
+                                    <span aria-hidden="true">&raquo;&raquo;</span>
+                                </a>
+                            </li>
+                        {% endif %}
+                    </ul>
+                </nav>
+                {% endif %}
+            {% else %}
+                <div class="text-center py-5">
+                    <i class="bi bi-box text-muted" style="font-size: 4rem;"></i>
+                    <h3 class="text-muted mt-3">Товары не найдены</h3>
+                    <p class="text-muted">Попробуйте изменить параметры поиска</p>
+                </div>
+            {% endif %}
+        </section>
+    </div>
+</main>
+
+<script>
+function filterByCategory(category) {
+    const url = new URL(window.location);
+    if (category) {
+        url.searchParams.set('category', category);
+    } else {
+        url.searchParams.delete('category');
+    }
+    window.location.href = url.toString();
+}
+</script>
+{% endblock %}
