@@ -8,8 +8,7 @@ from django.contrib.auth.forms import UserCreationForm, UserChangeForm
 import re
 from .models import (
     AnimalClass, AnimalFamily, HabitatCountry, FeedType, Enclosure, Employee, Animal, Feeding,
-    Promotion, Coupon, Product, CartItem, Order, OrderItem, Partner, CompanyInfo, 
-    CompanyHistory, Contact, Dictionary, News, FAQ, Job, Review, Client, Organization
+    Promotion, Coupon
 )
 
 # Отменяем стандартную регистрацию User
@@ -115,96 +114,4 @@ class PromotionAdmin(admin.ModelAdmin):
 class CouponAdmin(admin.ModelAdmin):
     list_display = ('code', 'fixed_discount', 'valid_from', 'valid_until', 'is_active', 'one_time_use')
     list_filter = ('is_active', 'one_time_use')
-    search_fields = ('code', 'description')
-
-# --- Новые админки для ЛР 1 HTML ---
-
-@admin.register(Product)
-class ProductAdmin(admin.ModelAdmin):
-    list_display = ('name', 'category', 'price', 'is_active', 'created_at')
-    list_filter = ('category', 'is_active', 'created_at')
-    search_fields = ('name', 'description', 'category')
-    list_editable = ('price', 'is_active')
-
-@admin.register(CartItem)
-class CartItemAdmin(admin.ModelAdmin):
-    list_display = ('user', 'product', 'quantity', 'total_price', 'added_at')
-    list_filter = ('added_at',)
-    search_fields = ('user__username', 'product__name')
-
-@admin.register(Order)
-class OrderAdmin(admin.ModelAdmin):
-    list_display = ('id', 'user', 'status', 'total_amount', 'created_at')
-    list_filter = ('status', 'created_at')
-    search_fields = ('user__username', 'id')
-    readonly_fields = ('created_at', 'updated_at')
-
-@admin.register(OrderItem)
-class OrderItemAdmin(admin.ModelAdmin):
-    list_display = ('order', 'product', 'quantity', 'price')
-    list_filter = ('order__status',)
-
-@admin.register(Partner)
-class PartnerAdmin(admin.ModelAdmin):
-    list_display = ('name', 'website_url', 'is_active', 'created_at')
-    list_filter = ('is_active', 'created_at')
-    search_fields = ('name', 'description')
-
-@admin.register(CompanyInfo)
-class CompanyInfoAdmin(admin.ModelAdmin):
-    list_display = ('title', 'is_active', 'created_at', 'updated_at')
-    list_filter = ('is_active', 'created_at')
-    readonly_fields = ('created_at', 'updated_at')
-
-@admin.register(CompanyHistory)
-class CompanyHistoryAdmin(admin.ModelAdmin):
-    list_display = ('year', 'title', 'company_info', 'created_at')
-    list_filter = ('year', 'company_info')
-    search_fields = ('title', 'description')
-    ordering = ['-year']
-
-@admin.register(Contact)
-class ContactAdmin(admin.ModelAdmin):
-    list_display = ('name', 'position', 'phone', 'email', 'is_active')
-    list_filter = ('is_active', 'position')
-    search_fields = ('name', 'position', 'phone', 'email')
-
-@admin.register(Dictionary)
-class DictionaryAdmin(admin.ModelAdmin):
-    list_display = ('term', 'is_active', 'created_at')
-    list_filter = ('is_active', 'created_at')
-    search_fields = ('term', 'definition')
-
-@admin.register(News)
-class NewsAdmin(admin.ModelAdmin):
-    list_display = ('title', 'is_published', 'created_at')
-    list_filter = ('is_published', 'created_at')
-    search_fields = ('title', 'description', 'content')
-
-@admin.register(FAQ)
-class FAQAdmin(admin.ModelAdmin):
-    list_display = ('question', 'is_published', 'created_at')
-    list_filter = ('is_published', 'created_at')
-    search_fields = ('question', 'answer')
-
-@admin.register(Job)
-class JobAdmin(admin.ModelAdmin):
-    list_display = ('title', 'is_active', 'created_at')
-    list_filter = ('is_active', 'created_at')
-    search_fields = ('title', 'description')
-
-@admin.register(Review)
-class ReviewAdmin(admin.ModelAdmin):
-    list_display = ('user', 'rating', 'is_published', 'created_at')
-    list_filter = ('rating', 'is_published', 'created_at')
-    search_fields = ('user__username', 'text')
-
-@admin.register(Client)
-class ClientAdmin(admin.ModelAdmin):
-    list_display = ('user', 'phone', 'birth_date', 'organization')
-    search_fields = ('user__username', 'user__first_name', 'user__last_name', 'phone')
-
-@admin.register(Organization)
-class OrganizationAdmin(admin.ModelAdmin):
-    list_display = ('name', 'phone', 'email')
-    search_fields = ('name', 'phone', 'email') 
+    search_fields = ('code', 'description') 

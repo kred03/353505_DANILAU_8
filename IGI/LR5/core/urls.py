@@ -90,34 +90,4 @@ urlpatterns = [
     path('interesting/', views.InterestingView.as_view(), name='interesting'),
 
     path('privacy-policy/', views.privacy_policy, name='privacy-policy'),
-
-    # --- Новые URL для ЛР 1 HTML ---
-    
-    # Товары/Услуги
-    path('products/', views.ProductListView.as_view(), name='product-list'),
-    path('products/<int:pk>/', views.ProductDetailView.as_view(), name='product-detail'),
-    path('products/create/', views.ProductCreateView.as_view(), name='product-create'),
-    path('products/<int:pk>/edit/', views.ProductUpdateView.as_view(), name='product-update'),
-    path('products/<int:pk>/delete/', views.ProductDeleteView.as_view(), name='product-delete'),
-    
-    # Корзина
-    path('cart/', views.CartView.as_view(), name='cart'),
-    path('add-to-cart/<int:product_id>/', views.add_to_cart, name='add-to-cart'),
-    path('remove-from-cart/<int:cart_item_id>/', views.remove_from_cart, name='remove-from-cart'),
-    path('update-cart-item/<int:cart_item_id>/', views.update_cart_item, name='update-cart-item'),
-    path('checkout/', views.checkout, name='checkout'),
-    path('order-success/<int:order_id>/', views.order_success, name='order-success'),
-    
-    # О компании
-    path('about-company/', views.AboutCompanyView.as_view(), name='about-company'),
-    
-    # Контакты
-    path('contacts/', views.ContactListView.as_view(), name='contact-list'),
-    
-    # Словарь терминов
-    path('dictionary/', views.DictionaryListView.as_view(), name='dictionary-list'),
-    path('dictionary/<int:pk>/', views.DictionaryDetailView.as_view(), name='dictionary-detail'),
-    
-    # Партнеры
-    path('partners/', views.PartnerListView.as_view(), name='partner-list'),
 ] 

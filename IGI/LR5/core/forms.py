@@ -5,7 +5,7 @@ from django.core.exceptions import ValidationError
 from datetime import date
 from dateutil.relativedelta import relativedelta
 import uuid
-from .models import Client, Organization, News, Animal, Enclosure, Feeding, Employee, FeedType, AnimalClass, AnimalFamily, Review, Job, FAQ, Promotion, Coupon, Product, Contact, Dictionary, CompanyInfo, CompanyHistory, Partner, CartItem
+from .models import Client, Organization, News, Animal, Enclosure, Feeding, Employee, FeedType, AnimalClass, AnimalFamily, Review, Job, FAQ, Promotion, Coupon
 from .validators import validate_phone
 
 class ClientRegistrationForm(UserCreationForm):
@@ -193,90 +193,4 @@ class CouponForm(forms.ModelForm):
         widgets = {
             'valid_from': forms.DateTimeInput(attrs={'type': 'datetime-local'}),
             'valid_until': forms.DateTimeInput(attrs={'type': 'datetime-local'}),
-        }
-
-# --- Новые формы для ЛР 1 HTML ---
-
-class ProductForm(forms.ModelForm):
-    class Meta:
-        model = Product
-        fields = ['name', 'description', 'price', 'image', 'category', 'is_active']
-        widgets = {
-            'name': forms.TextInput(attrs={'class': 'form-control'}),
-            'description': forms.Textarea(attrs={'class': 'form-control', 'rows': 4}),
-            'price': forms.NumberInput(attrs={'class': 'form-control', 'step': '0.01'}),
-            'image': forms.FileInput(attrs={'class': 'form-control'}),
-            'category': forms.TextInput(attrs={'class': 'form-control'}),
-            'is_active': forms.CheckboxInput(attrs={'class': 'form-check-input'}),
-        }
-
-class ContactForm(forms.ModelForm):
-    class Meta:
-        model = Contact
-        fields = ['name', 'position', 'photo', 'phone', 'email', 'description', 'is_active']
-        widgets = {
-            'name': forms.TextInput(attrs={'class': 'form-control'}),
-            'position': forms.TextInput(attrs={'class': 'form-control'}),
-            'photo': forms.FileInput(attrs={'class': 'form-control'}),
-            'phone': forms.TextInput(attrs={'class': 'form-control'}),
-            'email': forms.EmailInput(attrs={'class': 'form-control'}),
-            'description': forms.Textarea(attrs={'class': 'form-control', 'rows': 3}),
-            'is_active': forms.CheckboxInput(attrs={'class': 'form-check-input'}),
-        }
-
-class DictionaryForm(forms.ModelForm):
-    class Meta:
-        model = Dictionary
-        fields = ['term', 'definition', 'is_active']
-        widgets = {
-            'term': forms.TextInput(attrs={'class': 'form-control'}),
-            'definition': forms.Textarea(attrs={'class': 'form-control', 'rows': 4}),
-            'is_active': forms.CheckboxInput(attrs={'class': 'form-check-input'}),
-        }
-
-class CompanyInfoForm(forms.ModelForm):
-    class Meta:
-        model = CompanyInfo
-        fields = ['title', 'description', 'logo', 'video_url', 'video_file', 'requisites', 'certificate_text', 'certificate_image', 'is_active']
-        widgets = {
-            'title': forms.TextInput(attrs={'class': 'form-control'}),
-            'description': forms.Textarea(attrs={'class': 'form-control', 'rows': 5}),
-            'logo': forms.FileInput(attrs={'class': 'form-control'}),
-            'video_url': forms.URLInput(attrs={'class': 'form-control'}),
-            'video_file': forms.FileInput(attrs={'class': 'form-control'}),
-            'requisites': forms.Textarea(attrs={'class': 'form-control', 'rows': 6}),
-            'certificate_text': forms.Textarea(attrs={'class': 'form-control', 'rows': 8}),
-            'certificate_image': forms.FileInput(attrs={'class': 'form-control'}),
-            'is_active': forms.CheckboxInput(attrs={'class': 'form-check-input'}),
-        }
-
-class CompanyHistoryForm(forms.ModelForm):
-    class Meta:
-        model = CompanyHistory
-        fields = ['year', 'title', 'description', 'company_info']
-        widgets = {
-            'year': forms.NumberInput(attrs={'class': 'form-control'}),
-            'title': forms.TextInput(attrs={'class': 'form-control'}),
-            'description': forms.Textarea(attrs={'class': 'form-control', 'rows': 3}),
-            'company_info': forms.Select(attrs={'class': 'form-control'}),
-        }
-
-class PartnerForm(forms.ModelForm):
-    class Meta:
-        model = Partner
-        fields = ['name', 'logo', 'website_url', 'description', 'is_active']
-        widgets = {
-            'name': forms.TextInput(attrs={'class': 'form-control'}),
-            'logo': forms.FileInput(attrs={'class': 'form-control'}),
-            'website_url': forms.URLInput(attrs={'class': 'form-control'}),
-            'description': forms.Textarea(attrs={'class': 'form-control', 'rows': 3}),
-            'is_active': forms.CheckboxInput(attrs={'class': 'form-check-input'}),
-        }
-
-class CartItemForm(forms.ModelForm):
-    class Meta:
-        model = CartItem
-        fields = ['quantity']
-        widgets = {
-            'quantity': forms.NumberInput(attrs={'class': 'form-control', 'min': '1', 'max': '99'}),
         } 
