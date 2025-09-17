@@ -1,40 +1,14 @@
-{% load static %}
 <!DOCTYPE html>
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="{% block description %}Официальный сайт зоопарка - экскурсии, животные, новости и многое другое{% endblock %}">
-    <meta name="keywords" content="зоопарк, животные, экскурсии, природа, развлечения">
-    <meta name="author" content="Зоопарк">
-    <meta name="robots" content="index, follow">
-    
-    <!-- Open Graph / Facebook -->
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="{{ request.build_absolute_uri }}">
-    <meta property="og:title" content="{% block og_title %}Зоопарк{% endblock %}">
-    <meta property="og:description" content="{% block og_description %}Официальный сайт зоопарка{% endblock %}">
-    <meta property="og:image" content="{% block og_image %}{% static 'images/logos/logo zoo.jpg' %}{% endblock %}">
-    
-    <!-- Twitter -->
-    <meta property="twitter:card" content="summary_large_image">
-    <meta property="twitter:url" content="{{ request.build_absolute_uri }}">
-    <meta property="twitter:title" content="{% block twitter_title %}Зоопарк{% endblock %}">
-    <meta property="twitter:description" content="{% block twitter_description %}Официальный сайт зоопарка{% endblock %}">
-    <meta property="twitter:image" content="{% block twitter_image %}{% static 'images/logos/logo zoo.jpg' %}{% endblock %}">
-    
     <title>{% block title %}Зоопарк{% endblock %}</title>
-    
-    <!-- Favicon -->
-    <link rel="icon" type="image/x-icon" href="{% static 'images/favicon.ico' %}">
-    <link rel="apple-touch-icon" sizes="180x180" href="{% static 'images/apple-touch-icon.png' %}">
-    <link rel="icon" type="image/png" sizes="32x32" href="{% static 'images/favicon-32x32.png' %}">
-    <link rel="icon" type="image/png" sizes="16x16" href="{% static 'images/favicon-16x16.png' %}">
     
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Bootstrap Icons -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css" rel="stylesheet">
     <!-- FullCalendar CSS -->
     <link href='https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/main.min.css' rel='stylesheet' />
     
@@ -128,80 +102,76 @@
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
-                <nav role="navigation" aria-label="Основное меню">
-                    <ul class="navbar-nav me-auto">
-                        <!-- Основное меню -->
-                        <li class="nav-item">
-                            <a class="nav-link" href="{% url 'home' %}" aria-current="{% if request.resolver_match.url_name == 'home' %}page{% endif %}">
-                                <i class="bi bi-house" aria-hidden="true"></i> <span>Главная</span>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{% url 'product-list' %}" aria-current="{% if 'product' in request.resolver_match.url_name %}page{% endif %}">
-                                <i class="bi bi-shop" aria-hidden="true"></i> <span>Каталог</span>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{% url 'news-list' %}" aria-current="{% if 'news' in request.resolver_match.url_name %}page{% endif %}">
-                                <i class="bi bi-newspaper" aria-hidden="true"></i> <span>Новости</span>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link d-flex justify-content-center align-items-center" style="min-width: 110px;" href="{% url 'animal-list' %}" aria-current="{% if 'animal' in request.resolver_match.url_name %}page{% endif %}">
-                                <span aria-label="Животные">🐾 Животные</span>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{% url 'about-company' %}" aria-current="{% if 'about-company' in request.resolver_match.url_name %}page{% endif %}">
-                                <i class="bi bi-info-circle" aria-hidden="true"></i> <span>О компании</span>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{% url 'contact-list' %}" aria-current="{% if 'contact' in request.resolver_match.url_name %}page{% endif %}">
-                                <i class="bi bi-telephone" aria-hidden="true"></i> <span>Контакты</span>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{% url 'dictionary-list' %}" aria-current="{% if 'dictionary' in request.resolver_match.url_name %}page{% endif %}">
-                                <i class="bi bi-book" aria-hidden="true"></i> <span>Словарь</span>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{% url 'partner-list' %}" aria-current="{% if 'partner' in request.resolver_match.url_name %}page{% endif %}">
-                                <i class="bi bi-handshake" aria-hidden="true"></i> <span>Партнеры</span>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{% url 'review-list' %}" aria-current="{% if 'review' in request.resolver_match.url_name %}page{% endif %}">
-                                <i class="bi bi-star" aria-hidden="true"></i> <span>Отзывы</span>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{% url 'faq-list' %}" aria-current="{% if 'faq' in request.resolver_match.url_name %}page{% endif %}">
-                                <i class="bi bi-question-circle" aria-hidden="true"></i> <span>FAQ</span>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{% url 'job-list' %}" aria-current="{% if 'job' in request.resolver_match.url_name %}page{% endif %}">
-                                <i class="bi bi-briefcase" aria-hidden="true"></i> <span>Вакансии</span>
-                            </a>
-                        </li>
-                    </ul>
-                </nav>
+                <ul class="navbar-nav me-auto">
+                    <!-- Основное меню -->
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'home' %}">
+                            <i class="bi bi-house"></i> Главная
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'news-list' %}">
+                            <i class="bi bi-newspaper"></i> Новости
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link d-flex justify-content-center align-items-center" style="min-width: 110px;" href="{% url 'animal-list' %}">
+                            🐾 Животные
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'enclosure-list' %}">
+                            <i class="bi bi-building"></i> Помещения
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'feeding-list' %}">
+                            <i class="bi bi-egg-fried"></i> Кормления
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'employee-list' %}">
+                            <i class="bi bi-people"></i> Сотрудники
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'feedtype-list' %}">
+                            <i class="bi bi-basket"></i> Корма
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'promotion-coupon-list' %}">
+                            <i class="bi bi-tag"></i> Акции
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'job-list' %}">
+                            <i class="bi bi-briefcase"></i> Вакансии
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'review-list' %}">
+                            <i class="bi bi-star"></i> Отзывы
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'faq-list' %}">
+                            <i class="bi bi-question-circle"></i> FAQ
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'statistics' %}">
+                            <i class="bi bi-graph-up"></i> Статистика
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'about' %}">
+                            <i class="bi bi-info-circle"></i> О компании
+                        </a>
+                    </li>
+                </ul>
                 <ul class="navbar-nav ms-auto">
                     {% if user.is_authenticated %}
-                        <li class="nav-item">
-                            <a class="nav-link" href="{% url 'cart' %}" aria-label="Корзина покупок">
-                                <i class="bi bi-cart3" aria-hidden="true"></i> 
-                                <span class="badge bg-danger" id="cart-count">
-                                    {% if user.is_authenticated %}
-                                        {{ user.cartitem_set.count }}
-                                    {% else %}
-                                        0
-                                    {% endif %}
-                                </span>
-                            </a>
-                        </li>
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-bs-toggle="dropdown">
                                 <i class="bi bi-person-circle"></i> {{ user.get_full_name|default:user.username }}

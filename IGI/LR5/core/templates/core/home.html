@@ -2,37 +2,15 @@
 {% load static %}
 
 {% block content %}
-<main role="main">
-    <!-- Баннер с логотипом -->
-    <section class="hero-banner mb-5">
-        <div class="container-fluid px-2 px-md-4">
-            <div class="row align-items-center">
-                <div class="col-md-6">
-                    {% if company_info and company_info.logo %}
-                        <img src="{% static 'images/logos/logo zoo.jpg' %}" alt="Логотип зоопарка" class="img-fluid mb-3" style="max-height: 150px;">
-                    {% endif %}
-                    <h1 class="display-4 fw-bold text-primary">Добро пожаловать в зоопарк!</h1>
-                    <p class="lead">Узнайте всё о наших животных, сотрудниках и жизни зоопарка.</p>
-                </div>
-                <div class="col-md-6">
-                    <!-- Баннер рекламы -->
-                    <div class="banner-ad text-white p-0 rounded overflow-hidden" style="background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);">
-                        <a href="{% url 'product-list' %}" class="d-block text-decoration-none">
-                            <img src="{% static 'images/banners/bannner1.jpg' %}" alt="Добро пожаловать в зоопарк" class="img-fluid w-100 rounded">
-                        </a>
-                    </div>
-                </div>
-            </div>
+<div class="container-fluid px-2 px-md-4">
+    <div class="text-center mb-4 mb-md-5">
+        <h1 class="display-5 display-md-4">Добро пожаловать в зоопарк!</h1>
+        <p class="lead">Узнайте всё о наших животных, сотрудниках и жизни зоопарка.</p>
+        <div class="current-datetime mb-3 mb-md-4">
+            <h3 id="current-time" class="text-primary h4 h-md3"></h3>
+            <p id="current-date" class="lead mb-0 small"></p>
         </div>
-    </section>
-
-    <div class="container-fluid px-2 px-md-4">
-        <div class="text-center mb-4 mb-md-5">
-            <div class="current-datetime mb-3 mb-md-4">
-                <h3 id="current-time" class="text-primary h4 h-md3"></h3>
-                <p id="current-date" class="lead mb-0 small"></p>
-            </div>
-        </div>
+    </div>
 
     <!-- Статистика -->
     <div class="row mb-3 mb-md-4 g-2 g-md-4">
@@ -293,125 +271,4 @@ function renderCalendar() {
 document.addEventListener('DOMContentLoaded', renderCalendar);
 </script>
 {% endblock %}
-
-    <!-- Каталог товаров/услуг -->
-    <section class="catalog-section mb-5">
-        <div class="row">
-            <div class="col-12">
-                <h2 class="text-center mb-4">Наши услуги и товары</h2>
-                <!-- Дополнительный баннер -->
-                <div class="col-12 mb-4">
-                    <div class="text-center">
-                        <a href="{% url 'product-list' %}" class="d-inline-block text-decoration-none">
-                            <img src="{% static 'images/banners/banner2.jpg' %}" alt="Специальное предложение" class="img-fluid rounded" style="max-height: 200px;">
-                        </a>
-                    </div>
-                </div>
-                <div class="row g-4">
-                    {% for product in products %}
-                    <div class="col-md-6 col-lg-3">
-                        <article class="card h-100 shadow-sm">
-                            {% if product.image %}
-                                <img src="{{ product.image.url }}" class="card-img-top" alt="{{ product.name }}" style="height: 200px; object-fit: cover;">
-                            {% endif %}
-                            <div class="card-body d-flex flex-column">
-                                <h5 class="card-title">{{ product.name }}</h5>
-                                <p class="card-text flex-grow-1">{{ product.description|truncatewords:15 }}</p>
-                                <div class="mt-auto">
-                                    <p class="h5 text-primary">{{ product.price }} ₽</p>
-                                    <a href="{% url 'product-detail' product.pk %}" class="btn btn-primary w-100">Подробнее</a>
-                                </div>
-                            </div>
-                        </article>
-                    </div>
-                    {% empty %}
-                    <div class="col-12">
-                        <p class="text-center text-muted">Товары пока не добавлены</p>
-                    </div>
-                    {% endfor %}
-                </div>
-                <div class="text-center mt-4">
-                    <a href="{% url 'product-list' %}" class="btn btn-outline-primary">Посмотреть все товары</a>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Последняя статья -->
-    {% if latest_news %}
-    <section class="latest-news mb-5">
-        <div class="row">
-            <div class="col-12">
-                <h2 class="text-center mb-4">Последние новости</h2>
-                <!-- Третий баннер -->
-                <div class="col-12 mb-4">
-                    <div class="text-center">
-                        <a href="{% url 'about-company' %}" class="d-inline-block text-decoration-none">
-                            <img src="{% static 'images/banners/banner3.jpg' %}" alt="Забота о животных" class="img-fluid rounded" style="max-height: 200px;">
-                        </a>
-                    </div>
-                </div>
-                <article class="card shadow-sm">
-                    <div class="row g-0">
-                        <div class="col-md-4">
-                            <img src="{% static 'images/news/1.jpg' %}" class="img-fluid rounded-start" alt="{{ latest_news.title }}" style="height: 250px; object-fit: cover; width: 100%;">
-                        </div>
-                        <div class="col-md-8">
-                            <div class="card-body">
-                                <h5 class="card-title">{{ latest_news.title }}</h5>
-                                <p class="card-text">{{ latest_news.description|truncatewords:30 }}</p>
-                                <p class="card-text">
-                                    <small class="text-muted">
-                                        <time datetime="{{ latest_news.created_at|date:'c' }}">{{ latest_news.created_at|date:"d.m.Y H:i" }}</time>
-                                    </small>
-                                </p>
-                                <a href="{% url 'news-detail' latest_news.pk %}" class="btn btn-primary">Читать далее</a>
-                            </div>
-                        </div>
-                    </div>
-                </article>
-            </div>
-        </div>
-    </section>
-    {% endif %}
-
-    <!-- Партнеры -->
-    {% if partners %}
-    <section class="partners-section mb-5">
-        <div class="row">
-            <div class="col-12">
-                <h2 class="text-center mb-4">Наши партнеры</h2>
-                <div class="row g-4">
-                    {% for partner in partners %}
-                    <div class="col-md-4 col-lg-2">
-                        <div class="card h-100 text-center">
-                            {% if forloop.counter == 1 %}
-                                <img src="{% static 'images/wwf.png' %}" class="card-img-top" alt="{{ partner.name }}" style="height: 100px; object-fit: contain;">
-                            {% elif forloop.counter == 2 %}
-                                <img src="{% static 'images/belaz.webp' %}" class="card-img-top" alt="{{ partner.name }}" style="height: 100px; object-fit: contain;">
-                            {% elif forloop.counter == 3 %}
-                                <img src="{% static 'images/belarusbank.png' %}" class="card-img-top" alt="{{ partner.name }}" style="height: 100px; object-fit: contain;">
-                            {% elif forloop.counter == 4 %}
-                                <img src="{% static 'images/bsu logo.png' %}" class="card-img-top" alt="{{ partner.name }}" style="height: 100px; object-fit: contain;">
-                            {% elif forloop.counter == 5 %}
-                                <img src="{% static 'images/mts logo.png' %}" class="card-img-top" alt="{{ partner.name }}" style="height: 100px; object-fit: contain;">
-                            {% elif forloop.counter == 6 %}
-                                <img src="{% static 'images/minskzoologo.jpg' %}" class="card-img-top" alt="{{ partner.name }}" style="height: 100px; object-fit: contain;">
-                            {% else %}
-                                <img src="{% static 'images/partner1.svg' %}" class="card-img-top" alt="{{ partner.name }}" style="height: 100px; object-fit: contain;">
-                            {% endif %}
-                            <div class="card-body">
-                                <h6 class="card-title">{{ partner.name }}</h6>
-                                {% if partner.website_url %}
-                                    <a href="{{ partner.website_url }}" target="_blank" rel="noopener noreferrer" class="btn btn-sm btn-outline-primary">Сайт</a>
-                                {% endif %}
-                            </div>
-                        </div>
-                    </div>
-                    {% endfor %}
-                </div>
-            </div>
-        </div>
-    </section>
-    {% endif %}
 {% endblock %} 
