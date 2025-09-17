@@ -11,8 +11,7 @@ from django.contrib.auth import login
 from django import forms
 from .models import (
     AnimalClass, AnimalFamily, HabitatCountry, FeedType, Enclosure, Employee, Animal, Feeding,
-    Promotion, Coupon, News, FAQ, Job, Review, Client, Product, CartItem, Order, OrderItem,
-    Partner, CompanyInfo, CompanyHistory, Contact, Dictionary
+    Promotion, Coupon, News, FAQ, Job, Review, Client
 )
 import requests
 from django.db import models
@@ -20,7 +19,7 @@ import logging
 from django.db.models import Count, Sum, Avg, ExpressionWrapper, FloatField, F
 from django.db.models.functions import Cast
 import json
-from .forms import ClientRegistrationForm, NewsForm, JobForm, PromotionForm, CouponForm, AnimalForm, EnclosureForm, AnimalClassForm, AnimalFamilyForm, FeedTypeForm, EmployeeForm, FAQForm, ProductForm, ContactForm, DictionaryForm, CompanyInfoForm, CompanyHistoryForm, PartnerForm, CartItemForm
+from .forms import ClientRegistrationForm, NewsForm, JobForm, PromotionForm, CouponForm, AnimalForm, EnclosureForm, AnimalClassForm, AnimalFamilyForm, FeedTypeForm, EmployeeForm, FAQForm
 import random
 import calendar
 from datetime import datetime, timedelta
@@ -38,10 +37,6 @@ class HomeView(TemplateView):
         context['enclosures_count'] = Enclosure.objects.count()
         context['employees_count'] = Employee.objects.count()
         context['news'] = News.objects.filter(is_published=True)[:3]
-        context['latest_news'] = News.objects.filter(is_published=True).first()
-        context['products'] = Product.objects.filter(is_active=True)[:8]
-        context['partners'] = Partner.objects.filter(is_active=True)[:6]
-        context['company_info'] = CompanyInfo.objects.filter(is_active=True).first()
         # --- Альтернативные API ---
         # Факт о животном (кошка)
         animal_fact = None
@@ -666,177 +661,4 @@ class FAQDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
     def test_func(self):
         return self.request.user.is_superuser
     def get(self, request, *args, **kwargs):
-        return HttpResponseNotAllowed(['POST'])
-
-# --- Новые представления для ЛР 1 HTML ---
-
-# Товары/Услуги
-class ProductListView(ListView):
-    model = Product
-    template_name = 'core/product_list.html'
-    context_object_name = 'products'
-    paginate_by = 12
-
-    def get_queryset(self):
-        return Product.objects.filter(is_active=True)
-
-class ProductDetailView(DetailView):
-    model = Product
-    template_name = 'core/product_detail.html'
-    context_object_name = 'product'
-
-class ProductCreateView(LoginRequiredMixin, UserPassesTestMixin, CreateView):
-    model = Product
-    form_class = ProductForm
-    template_name = 'core/product_form.html'
-    success_url = reverse_lazy('product-list')
-    
-    def test_func(self):
-        return self.request.user.is_superuser
-
-class ProductUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
-    model = Product
-    form_class = ProductForm
-    template_name = 'core/product_form.html'
-    success_url = reverse_lazy('product-list')
-    
-    def test_func(self):
-        return self.request.user.is_superuser
-
-class ProductDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
-    model = Product
-    template_name = 'core/product_confirm_delete.html'
-    success_url = reverse_lazy('product-list')
-    
-    def test_func(self):
-        return self.request.user.is_superuser
-
-# Корзина
-class CartView(LoginRequiredMixin, ListView):
-    model = CartItem
-    template_name = 'core/cart.html'
-    context_object_name = 'cart_items'
-
-    def get_queryset(self):
-        return CartItem.objects.filter(user=self.request.user)
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        cart_items = context['cart_items']
-        total_amount = sum(item.total_price for item in cart_items)
-        context['total_amount'] = total_amount
-        return context
-
-@login_required
-def add_to_cart(request, product_id):
-    product = get_object_or_404(Product, id=product_id)
-    cart_item, created = CartItem.objects.get_or_create(
-        user=request.user,
-        product=product,
-        defaults={'quantity': 1}
-    )
-    if not created:
-        cart_item.quantity += 1
-        cart_item.save()
-    messages.success(request, f'Товар "{product.name}" добавлен в корзину')
-    return redirect('product-detail', pk=product_id)
-
-@login_required
-def remove_from_cart(request, cart_item_id):
-    cart_item = get_object_or_404(CartItem, id=cart_item_id, user=request.user)
-    cart_item.delete()
-    messages.success(request, 'Товар удален из корзины')
-    return redirect('cart')
-
-@login_required
-def update_cart_item(request, cart_item_id):
-    cart_item = get_object_or_404(CartItem, id=cart_item_id, user=request.user)
-    if request.method == 'POST':
-        form = CartItemForm(request.POST, instance=cart_item)
-        if form.is_valid():
-            form.save()
-            messages.success(request, 'Количество обновлено')
-    return redirect('cart')
-
-@login_required
-def checkout(request):
-    cart_items = CartItem.objects.filter(user=request.user)
-    if not cart_items.exists():
-        messages.warning(request, 'Корзина пуста')
-        return redirect('cart')
-    
-    total_amount = sum(item.total_price for item in cart_items)
-    
-    if request.method == 'POST':
-        # Создаем заказ
-        order = Order.objects.create(
-            user=request.user,
-            total_amount=total_amount
-        )
-        
-        # Создаем элементы заказа
-        for cart_item in cart_items:
-            OrderItem.objects.create(
-                order=order,
-                product=cart_item.product,
-                quantity=cart_item.quantity,
-                price=cart_item.product.price
-            )
-        
-        # Очищаем корзину
-        cart_items.delete()
-        
-        messages.success(request, f'Заказ #{order.id} создан успешно!')
-        return redirect('order-success', order_id=order.id)
-    
-    return render(request, 'core/checkout.html', {
-        'cart_items': cart_items,
-        'total_amount': total_amount
-    })
-
-def order_success(request, order_id):
-    order = get_object_or_404(Order, id=order_id, user=request.user)
-    return render(request, 'core/order_success.html', {'order': order})
-
-# О компании
-class AboutCompanyView(TemplateView):
-    template_name = 'core/about_company.html'
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['company_info'] = CompanyInfo.objects.filter(is_active=True).first()
-        context['company_history'] = CompanyHistory.objects.all().order_by('year')
-        return context
-
-# Контакты
-class ContactListView(ListView):
-    model = Contact
-    template_name = 'core/contact_list.html'
-    context_object_name = 'contacts'
-
-    def get_queryset(self):
-        return Contact.objects.filter(is_active=True)
-
-# Словарь терминов
-class DictionaryListView(ListView):
-    model = Dictionary
-    template_name = 'core/dictionary_list.html'
-    context_object_name = 'terms'
-    paginate_by = 20
-
-    def get_queryset(self):
-        return Dictionary.objects.filter(is_active=True)
-
-class DictionaryDetailView(DetailView):
-    model = Dictionary
-    template_name = 'core/dictionary_detail.html'
-    context_object_name = 'term'
-
-# Партнеры
-class PartnerListView(ListView):
-    model = Partner
-    template_name = 'core/partner_list.html'
-    context_object_name = 'partners'
-
-    def get_queryset(self):
-        return Partner.objects.filter(is_active=True) 
+        return HttpResponseNotAllowed(['POST']) 
