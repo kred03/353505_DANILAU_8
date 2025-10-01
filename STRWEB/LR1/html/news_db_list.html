@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Новости (БД) — ЛР1 HTML</title>
+    <link rel="icon" href="../images/favicon.ico">
+  </head>
+  <body>
+    <header>
+      <nav>
+        <ul>
+          <li><a href="/">Главная</a></li>
+        </ul>
+      </nav>
+      <h1>Новости</h1>
+    </header>
+
+    <main>
+      {% for n in news_list %}
+      <article>
+        <h2>{{ n.title }}</h2>
+        {% if n.image %}
+          <img src="{{ n.image.url }}" alt="{{ n.title }}" width="400">
+        {% endif %}
+        <p>{{ n.description }}</p>
+        <details>
+          <summary>Читать далее</summary>
+          <p>{{ n.content }}</p>
+        </details>
+      </article>
+      <hr>
+      {% empty %}
+      <p>Нет опубликованных новостей.</p>
+      {% endfor %}
+    </main>
+
+    <footer>
+      <p><a href="/">На главную</a></p>
+    </footer>
+  </body>
+</html>

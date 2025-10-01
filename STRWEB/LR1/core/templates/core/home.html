@@ -1,0 +1,274 @@
+{% extends 'core/base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container-fluid px-2 px-md-4">
+    <div class="text-center mb-4 mb-md-5">
+        <h1 class="display-5 display-md-4">Добро пожаловать в зоопарк!</h1>
+        <p class="lead">Узнайте всё о наших животных, сотрудниках и жизни зоопарка.</p>
+        <div class="current-datetime mb-3 mb-md-4">
+            <h3 id="current-time" class="text-primary h4 h-md3"></h3>
+            <p id="current-date" class="lead mb-0 small"></p>
+        </div>
+    </div>
+
+    <!-- Статистика -->
+    <div class="row mb-3 mb-md-4 g-2 g-md-4">
+        <div class="col-12 col-sm-4 mb-2 mb-sm-0">
+            <div class="card text-center h-100 shadow-sm">
+                <div class="card-body py-3 py-md-4">
+                    <h3 class="card-title h5">Животных в зоопарке</h3>
+                    <p class="display-6">{{ animals_count|default:"0" }}</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-12 col-sm-4 mb-2 mb-sm-0">
+            <div class="card text-center h-100 shadow-sm">
+                <div class="card-body py-3 py-md-4">
+                    <h3 class="card-title h5">Помещений</h3>
+                    <p class="display-6">{{ enclosures_count|default:"0" }}</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-12 col-sm-4">
+            <div class="card text-center h-100 shadow-sm">
+                <div class="card-body py-3 py-md-4">
+                    <h3 class="card-title h5">Сотрудников</h3>
+                    <p class="display-6">{{ employees_count|default:"0" }}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Новости -->
+    <div class="row mb-4 mb-md-5 g-2 g-md-4">
+        <div class="col-12">
+            <h2 class="text-center mb-3 mb-md-4 h4 h-md-2">Новости зоопарка</h2>
+        </div>
+        {% for news in news %}
+        <div class="col-12 col-md-4 mb-2 mb-md-4">
+            <div class="card h-100 shadow">
+                <div class="card-body py-3 py-md-4">
+                    <h5 class="card-title h6">{{ news.title }}</h5>
+                    <p class="card-text small">{{ news.description|truncatewords:20 }}</p>
+                    <a href="{% url 'news-detail' news.pk %}" class="btn btn-outline-primary btn-sm">Подробнее</a>
+                </div>
+            </div>
+        </div>
+        {% empty %}
+        <div class="col-12">
+            <p class="text-center text-muted">Пока нет новостей</p>
+        </div>
+        {% endfor %}
+    </div>
+
+    <!-- Разделы зоопарка -->
+    <div class="row mb-4 mb-md-5 g-2 g-md-4">
+        <div class="col-12">
+            <h2 class="text-center mb-3 mb-md-4 h4 h-md-2">Разделы зоопарка</h2>
+        </div>
+        <div class="col-6 col-md-4 mb-2 mb-md-4">
+            <div class="card h-100 shadow">
+                <div class="card-body text-center py-3 py-md-4">
+                    <span style="font-size: 2rem;">🐾</span>
+                    <h4 class="card-title h6">Животные</h4>
+                    <p class="card-text small">Познакомьтесь с нашими обитателями.</p>
+                    <a href="{% url 'animal-list' %}" class="btn btn-outline-primary btn-sm">Смотреть животных</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-6 col-md-4 mb-2 mb-md-4">
+            <div class="card h-100 shadow">
+                <div class="card-body text-center py-3 py-md-4">
+                    <i class="bi bi-building display-6 mb-2 text-primary"></i>
+                    <h4 class="card-title h6">Помещения</h4>
+                    <p class="card-text small">Узнайте о вольерах и условиях содержания.</p>
+                    <a href="{% url 'enclosure-list' %}" class="btn btn-outline-primary btn-sm">Смотреть помещения</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-6 col-md-4 mb-2 mb-md-4">
+            <div class="card h-100 shadow">
+                <div class="card-body text-center py-3 py-md-4">
+                    <i class="bi bi-egg-fried display-6 mb-2 text-primary"></i>
+                    <h4 class="card-title h6">Кормления</h4>
+                    <p class="card-text small">Расписание и учет кормлений животных.</p>
+                    <a href="{% url 'feeding-list' %}" class="btn btn-outline-primary btn-sm">Смотреть кормления</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-6 col-md-4 mb-2 mb-md-4">
+            <div class="card h-100 shadow">
+                <div class="card-body text-center py-3 py-md-4">
+                    <i class="bi bi-person-badge display-6 mb-2 text-primary"></i>
+                    <h4 class="card-title h6">Сотрудники</h4>
+                    <p class="card-text small">Познакомьтесь с нашими сотрудниками.</p>
+                    <a href="{% url 'employee-list' %}" class="btn btn-outline-primary btn-sm">Смотреть сотрудников</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-6 col-md-4 mb-2 mb-md-4">
+            <div class="card h-100 shadow">
+                <div class="card-body text-center py-3 py-md-4">
+                    <i class="bi bi-basket display-6 mb-2 text-primary"></i>
+                    <h4 class="card-title h6">Корма</h4>
+                    <p class="card-text small">Виды кормов и их учет.</p>
+                    <a href="{% url 'feedtype-list' %}" class="btn btn-outline-primary btn-sm">Смотреть корма</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Акции и скидки -->
+    <div class="row mb-4 mb-md-5 g-2 g-md-4">
+        <div class="col-12">
+            <h2 class="text-center mb-3 mb-md-4 h4 h-md-2">Акции и скидки</h2>
+        </div>
+        <div class="col-12 mb-2 mb-md-4">
+            <div class="card h-100 shadow">
+                <div class="card-body text-center py-3 py-md-4">
+                    <i class="bi bi-tags display-6 mb-2 text-success"></i>
+                    <h4 class="card-title h6">Действующие акции и купоны</h4>
+                    <p class="card-text small">Воспользуйтесь скидками и специальными предложениями для посетителей зоопарка.</p>
+                    <a href="{% url 'promotion-coupon-list' %}" class="btn btn-outline-success btn-sm">Посмотреть акции и купоны</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Вакансии и отзывы -->
+    <div class="row mb-4 mb-md-5 g-2 g-md-4">
+        <div class="col-12 col-md-6 mb-2 mb-md-4">
+            <div class="card h-100 shadow">
+                <div class="card-body text-center py-3 py-md-4">
+                    <i class="bi bi-briefcase display-6 mb-2 text-primary"></i>
+                    <h4 class="card-title h6">Вакансии</h4>
+                    <p class="card-text small">Хотите работать в зоопарке? Ознакомьтесь с открытыми вакансиями.</p>
+                    <a href="{% url 'job-list' %}" class="btn btn-outline-primary btn-sm">Смотреть вакансии</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-12 col-md-6 mb-2 mb-md-4">
+            <div class="card h-100 shadow">
+                <div class="card-body text-center py-3 py-md-4">
+                    <i class="bi bi-star display-6 mb-2 text-warning"></i>
+                    <h4 class="card-title h6">Отзывы</h4>
+                    <p class="card-text small">Почитайте отзывы посетителей или оставьте свой!</p>
+                    <a href="{% url 'review-list' %}" class="btn btn-outline-warning btn-sm">Смотреть отзывы</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- О зоопарке -->
+    <div class="row mb-4 mb-md-5 g-2 g-md-4">
+        <div class="col-12">
+            <h2 class="text-center mb-3 mb-md-4 h4 h-md-2">О зоопарке</h2>
+            <div class="card shadow">
+                <div class="card-body py-3 py-md-4">
+                    <p class="lead small">Наш зоопарк — это место, где заботятся о животных, обучают посетителей и создают уникальные впечатления для всей семьи. Приходите к нам за новыми знаниями и яркими эмоциями!</p>
+                    <a href="{% url 'about' %}" class="btn btn-info btn-sm">Подробнее о зоопарке</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Дополнительные данные -->
+    <div class="row mb-3 mb-md-4 g-2 g-md-4">
+        <div class="col-12 col-md-6 mb-2 mb-md-0">
+            <div class="card h-100 shadow-sm">
+                <div class="card-body py-3 py-md-4">
+                    <h3 class="card-title h5">Календарь</h3>
+                    <pre class="text-calendar">{{ calendar_text }}</pre>
+                </div>
+            </div>
+        </div>
+        <div class="col-12 col-md-6">
+            <div class="card h-100 shadow-sm">
+                <div class="card-body py-3 py-md-4">
+                    <h3 class="card-title h5">Факт о животном</h3>
+                    <p id="animal-fact" class="small">{% if animal_fact %}{{ animal_fact }}{% else %}—{% endif %}</p>
+                    <img id="animal-image" src="{% if animal_image %}{{ animal_image }}{% else %}/static/images/animal_placeholder.png{% endif %}" alt="Фотография животного" class="img-fluid mb-2" style="max-height: 120px;">
+                    <h3 class="card-title h5 mt-3 mt-md-4">Погода</h3>
+                    <p id="weather" class="small">{% if weather %}{{ weather }}{% else %}—{% endif %}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    html, body {
+        max-width: 100vw;
+        overflow-x: hidden;
+    }
+    .container-fluid {
+        padding-left: 0.5rem;
+        padding-right: 0.5rem;
+    }
+    @media (max-width: 767px) {
+        .display-4, .display-5, .display-6, h1, h2, h3, h4, h5 {
+            font-size: 1.2rem !important;
+        }
+        .card-title {
+            font-size: 1rem !important;
+        }
+        .lead {
+            font-size: 1rem !important;
+        }
+        .card-body {
+            padding: 0.75rem !important;
+        }
+    }
+</style>
+
+{% block extra_js %}
+<script>
+// Текущее время
+function updateDateTime() {
+    const now = new Date();
+    const timeOptions = { 
+        hour: '2-digit', 
+        minute: '2-digit', 
+        second: '2-digit',
+        hour12: false,
+        timeZoneName: 'short'
+    };
+    document.getElementById('current-time').textContent = now.toLocaleTimeString('ru-RU', timeOptions);
+    const dateOptions = { 
+        weekday: 'long', 
+        year: 'numeric', 
+        month: 'long', 
+        day: 'numeric'
+    };
+    document.getElementById('current-date').textContent = now.toLocaleDateString('ru-RU', dateOptions);
+}
+setInterval(updateDateTime, 1000);
+updateDateTime();
+
+// Календарь без библиотек
+function renderCalendar() {
+    const calendar = document.getElementById('calendar');
+    const now = new Date();
+    const monthNames = ['Январь', 'Февраль', 'Март', 'Апрель', 'Май', 'Июнь', 'Июль', 'Август', 'Сентябрь', 'Октябрь', 'Ноябрь', 'Декабрь'];
+    const daysInMonth = new Date(now.getFullYear(), now.getMonth() + 1, 0).getDate();
+    let html = `<div style='text-align:center; font-weight:bold;'>${monthNames[now.getMonth()]} ${now.getFullYear()}</div>`;
+    html += '<table class="table table-bordered"><thead><tr>';
+    const weekDays = ['Пн','Вт','Ср','Чт','Пт','Сб','Вс'];
+    for (let d of weekDays) html += `<th>${d}</th>`;
+    html += '</tr></thead><tbody><tr>';
+    let firstDay = new Date(now.getFullYear(), now.getMonth(), 1).getDay();
+    if (firstDay === 0) firstDay = 7;
+    for (let i = 1; i < firstDay; i++) html += '<td></td>';
+    for (let day = 1; day <= daysInMonth; day++) {
+        if ((firstDay + day - 2) % 7 === 0 && day !== 1) html += '</tr><tr>';
+        let todayClass = (day === now.getDate()) ? 'bg-primary text-white' : '';
+        html += `<td class='${todayClass}'>${day}</td>`;
+    }
+    html += '</tr></tbody></table>';
+    calendar.innerHTML = html;
+}
+document.addEventListener('DOMContentLoaded', renderCalendar);
+</script>
+{% endblock %}
+{% endblock %} 
