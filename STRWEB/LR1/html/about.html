@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="ru" itemscope itemtype="https://schema.org/Organization">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="О компании: информация, логотип, история, реквизиты, сертификат.">
+    <link rel="icon" href="../images/favicon.ico">
+    <title>О компании — ЛР1 HTML</title>
+  </head>
+  <body>
+    <header>
+      <nav>
+        <ul>
+          <li><a href="/">Главная</a></li>
+          <li><a href="/news-min">Новости</a></li>
+        </ul>
+      </nav>
+      <h1 itemprop="name">Компания «Зоопарк»</h1>
+      <img src="../images/logo.png" alt="Логотип" width="120" itemprop="logo">
+    </header>
+
+    <main>
+      <section aria-labelledby="about-text">
+        <h2 id="about-text">Информация о компании</h2>
+        <p itemprop="description">Краткая информация о компании, её миссии и услугах.</p>
+      </section>
+
+      <section aria-labelledby="history">
+        <h2 id="history">История по годам</h2>
+        <ol>
+          <li><time datetime="2020">2020</time> — Основание компании.</li>
+          <li><time datetime="2023">2023</time> — Запуск онлайн‑сервиса.</li>
+          <li><time datetime="2025">2025</time> — Обновление каталога.</li>
+        </ol>
+      </section>
+
+      <section aria-labelledby="requisites">
+        <h2 id="requisites">Реквизиты</h2>
+        <table>
+          <caption>Таблица реквизитов компании</caption>
+          <thead>
+            <tr>
+              <th id="h1" scope="col">Параметр</th>
+              <th id="h2" scope="col">Значение</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td headers="h1"><abbr title="Идентификационный номер налогоплательщика">ИНН</abbr></td>
+              <td headers="h2">1234567890</td>
+            </tr>
+            <tr>
+              <td headers="h1"><abbr title="Основной государственный регистрационный номер">ОГРН</abbr></td>
+              <td headers="h2">1098765432100</td>
+            </tr>
+            <tr>
+              <td headers="h1">Адрес</td>
+              <td headers="h2" itemprop="address">г. Минск</td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+
+      <section aria-labelledby="poem">
+        <h2 id="poem">Пример четверостишия</h2>
+        <p>Фиксированные переносы строк через pre:</p>
+        <pre>
+В тиши вольеров слышен дальний звон,
+И ветер листья в кронах перебросит,
+Пускай становимся добрее мы
+От взгляда тёплых, умных глаз заносчивых.
+        </pre>
+        <p>Потенциальные переносы (optional) через wbr внутри длинных словосочетаний:</p>
+        <p>Длиннофразное<wbr>описание<wbr>событий<wbr>зоопарка может переноситься по возможным точкам.</p>
+      </section>
+
+      <section aria-labelledby="links">
+        <h2 id="links">Примеры ссылок</h2>
+        <ul>
+          <li>Внутренняя: <a href="/news-min">Новости</a></li>
+          <li>Внешняя: <a href="https://example.com" target="_blank" rel="noopener">Открыть сайт партнёра</a></li>
+          <li>Якорная: <a href="#history">К разделу «История»</a></li>
+          <li>Email: <a href="mailto:info@example.com">info@example.com</a></li>
+          <li>Телефон: <a href="tel:+375291112233">+375 29 111 22 33</a></li>
+          <li>Скачать документ: <a href="../images/ads/PZ2_classification_filled.docx" download>Классификация (DOCX)</a></li>
+          <li>Скачать таблицу: <a href="../images/ads/PZ2_classification_filled.xlsx" download>Классификация (XLSX)</a></li>
+        </ul>
+      </section>
+
+      <section aria-labelledby="certificate">
+        <h2 id="certificate">Сертификат</h2>
+        <figure>
+          <img src="../images/news/giraffe.jpg" alt="Сертификат (пример изображения)" width="300">
+          <figcaption>Пример сертификата</figcaption>
+        </figure>
+      </section>
+
+      <section aria-labelledby="media">
+        <h2 id="media">Медиа</h2>
+        <p>Видео и аудио материалы:</p>
+        <video controls width="480">
+          <source src="../videos/zoo-intro.mp4" type="video/mp4">
+          <source src="../videos/zoo-intro.webm" type="video/webm">
+        </video>
+        <audio controls>
+          <source src="../audio/zoo-tour.mp3" type="audio/mpeg">
+          <source src="../audio/zoo-tour.ogg" type="audio/ogg">
+        </audio>
+      </section>
+
+      <section aria-labelledby="map">
+        <h2 id="map">Карта (iframe)</h2>
+        <iframe title="Пример карты" src="https://www.openstreetmap.org/export/embed.html" width="600" height="300"></iframe>
+      </section>
+    </main>
+
+    <footer>
+      <address itemprop="email">info@example.com</address>
+      <p><a href="/">На главную</a></p>
+    </footer>
+  </body>
+  </html>

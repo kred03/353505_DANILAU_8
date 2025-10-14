@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Новости — ЛР1 HTML</title>
+    <meta name="description" content="Список новостей с заголовком, кратким содержанием и кнопкой Читать далее.">
+    <link rel="icon" href="../images/favicon.ico">
+  </head>
+  <body>
+    <header>
+      <nav>
+        <ul>
+          <li><a href="/">Главная</a></li>
+        </ul>
+      </nav>
+      <h1>Новости</h1>
+    </header>
+
+    <main>
+      <article id="article-1">
+        <h2>Открытые двери</h2>
+        <img src="../images/news/open-doors.jpg" alt="Открытые двери" width="400">
+        <p>Краткое содержание новости в одно предложение.</p>
+        <details>
+          <summary>Читать далее</summary>
+          <section id="article-1-full">
+            <h3>Полный текст</h3>
+            <p>Полная статья, доступная при раскрытии этого блока.</p>
+          </section>
+        </details>
+      </article>
+
+      <article id="article-2">
+        <h2>Новые животные</h2>
+        <img src="../images/news/new-animals.jpg" alt="Новые животные" width="400">
+        <p>Краткое содержание новости в одно предложение.</p>
+        <details>
+          <summary>Читать далее</summary>
+          <section id="article-2-full">
+            <h3>Полный текст</h3>
+            <p>Подробности события с текстом в раскрывающемся блоке.</p>
+          </section>
+        </details>
+      </article>
+    </main>
+
+    <footer>
+      <p><a href="/">На главную</a></p>
+    </footer>
+  </body>
+</html>

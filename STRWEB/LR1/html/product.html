@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Страница товара/услуги. Информация об объекте и кнопка Добавить в корзину.">
+    <link rel="icon" href="../images/favicon.ico">
+    <title>Товар — ЛР1 HTML</title>
+  </head>
+  <body>
+    <header>
+      <nav aria-label="Основная навигация">
+        <ul>
+          <li><a href="/">Главная</a></li>
+          <li><a href="/cart">Корзина</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <main>
+      <article id="lion" aria-labelledby="lion-title">
+        <h1 id="lion-title">Товар «Лев»</h1>
+        <figure>
+          <img src="../images/lion.jpg" alt="Лев" width="600">
+          <figcaption>Изображение товара «Лев»</figcaption>
+        </figure>
+        <p>Краткое описание товара. Цена: 100.</p>
+        <p>
+          <a href="/cart?action=add&item=lion">Добавить в корзину</a>
+        </p>
+      </article>
+
+      <hr>
+
+      <article id="tiger" aria-labelledby="tiger-title">
+        <h2 id="tiger-title">Товар «Тигр»</h2>
+        <figure>
+          <img src="../images/tiger.jpg" alt="Тигр" width="600">
+          <figcaption>Изображение товара «Тигр»</figcaption>
+        </figure>
+        <p>Краткое описание товара. Цена: 120.</p>
+        <p><a href="/cart?action=add&item=tiger">Добавить в корзину</a></p>
+      </article>
+
+      <hr>
+
+      <article id="giraffe" aria-labelledby="giraffe-title">
+        <h2 id="giraffe-title">Товар «Жираф»</h2>
+        <figure>
+          <img src="../images/news/giraffe.jpg" alt="Жираф" width="600">
+          <figcaption>Изображение товара «Жираф»</figcaption>
+        </figure>
+        <p>Краткое описание товара. Цена: 90.</p>
+        <p><a href="/cart?action=add&item=giraffe">Добавить в корзину</a></p>
+      </article>
+    </main>
+
+    <footer>
+      <p><a href="/#catalog-title">Назад к каталогу</a></p>
+    </footer>
+  </body>
+</html>

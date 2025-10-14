@@ -1,0 +1,20 @@
+{% extends 'core/base.html' %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card shadow">
+                <div class="card-body">
+                    <h1 class="card-title mb-4">Удалить животное</h1>
+                    <p>Вы уверены, что хотите удалить животное: <strong>{{ object.name }}</strong>?</p>
+                    <form method="post">{% csrf_token %}
+                        <a href="{% url 'animal-list' %}" class="btn btn-secondary">Отмена</a>
+                        <button type="submit" class="btn btn-danger">Удалить</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %} 

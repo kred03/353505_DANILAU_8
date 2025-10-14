@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Главная страница лабораторной работы. Логотип, баннер, каталог, новости, партнёры.">
+    <link rel="icon" href="../images/favicon.ico">
+    <title>Главная — ЛР1 HTML</title>
+  </head>
+  <body>
+    <header>
+      <a href="/">
+        <img src="../images/logo.png" alt="Логотип компании" width="120" height="120">
+      </a>
+      <nav aria-label="Основная навигация">
+        <ul>
+          <li><a href="/">Главная</a></li>
+          <li><a href="/product">Товар</a></li>
+          <li><a href="/cart">Корзина</a></li>
+          <li><a href="/checkout">Оплата</a></li>
+          <li><a href="/about-min">О компании</a></li>
+          <li><a href="/news-min">Новости</a></li>
+          <li><a href="/faq-min">Словарь</a></li>
+          <li><a href="/contacts-min">Контакты</a></li>
+          <li><a href="/privacy-min">Политика</a></li>
+          <li><a href="/vacancies-min">Вакансии</a></li>
+          <li><a href="/reviews-min">Отзывы</a></li>
+          <li><a href="/promocodes-min">Промокоды</a></li>
+        </ul>
+      </nav>
+      <figure>
+        <img src="../images/banner.jpg" alt="Рекламный баннер" width="120">
+        <figcaption>Реклама компании в виде баннера</figcaption>
+      </figure>
+    </header>
+
+    <main>
+      <section aria-labelledby="catalog-title">
+        <h1 id="catalog-title">Каталог</h1>
+        <p translate="no" >В нашем каталоге представлены <strong>популярные</strong> позиции; <b>некоторые</b> описания содержат <em>уточняющую информацию</em>, а новые поступления помечены <mark>новинка</mark>.</p>
+        <ul>
+          <li><a href="/product#lion">Товар «Лев»</a></li>
+          <li><a href="/product#tiger">Товар «Тигр»</a></li>
+          <li><a href="/product#giraffe">Товар «Жираф»</a></li>
+        </ul>
+      </section>
+
+      <section aria-labelledby="last-article">
+        <h2 id="last-article">Последняя статья</h2>
+        <article>
+          <header>
+            <h3>Почему зоопарки важны</h3>
+          </header>
+          <p>Как сказал один исследователь: <q>знание о животных — это знание о нас самих</q>.</p>
+          <blockquote cite="https://example.com/long-article-about-zoos">
+            Зоопарки помогают сохранять биоразнообразие и вести образовательную работу с посетителями.
+          </blockquote>
+          <p>Источник: <cite>Журнал «Мир природы», №1</cite>.</p>
+          <p>Краткая аннотация статьи. Полный текст доступен в разделе «Новости».</p>
+          <p><a href="/news-min#article-1">Читать далее</a></p>
+        </article>
+      </section>
+
+      <section aria-labelledby="partners">
+        <h2 id="partners">Партнёры</h2>
+        <ul>
+          <li>
+            <a accesskey="k" href="https://example.com" target="_blank" rel="noopener">
+              <img src="../images/partner1.png" alt="Логотип партнёра 1" width="160">
+            </a>
+          </li>
+          <li>
+            <a href="https://example.com" target="_blank" rel="noopener">
+              <img src="../images/partner2.png" alt="Логотип партнёра 2" width="160">
+            </a>
+          </li>
+          <li>
+            <a href="https://example.com" target="_blank" rel="noopener">
+              <img src="../images/partner3.png" alt="Логотип партнёра 3" width="160">
+            </a>
+          </li>
+        </ul>
+      </section>
+
+      <aside aria-labelledby="sidebar-title">
+        <h2 id="sidebar-title">Дополнительно</h2>
+        <section aria-labelledby="fact-title">
+          <h3 id="fact-title">Факт о животном</h3>
+          <p>{{ animal_fact }}</p>
+        </section>
+        <section aria-labelledby="weather-title">
+          <h3 id="weather-title">Погода</h3>
+          <p>{{ weather }}</p>
+        </section>
+        <section aria-labelledby="code-title">
+          <h3 id="code-title">Пример кода</h3>
+          <p>Небольшой пример запроса к API без стилей:</p>
+          <pre>
+<code>GET /api/animals HTTP/1.1
+Host: example.com
+Accept: application/json</code>
+          </pre>
+        </section>
+      </aside>
+    </main>
+
+    <footer>
+      <p><small>&copy; 2025 Компания «Зоопарк». Все права защищены.</small></p>
+    </footer>
+  </body>
+</html>
