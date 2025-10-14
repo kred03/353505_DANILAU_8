@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Страница оплаты товаров.">
+    <link rel="icon" href="../images/favicon.ico">
+    <title>Оплата — ЛР1 HTML</title>
+  </head>
+  <body>
+    <header>
+      <nav>
+        <ul>
+          <li><a href="/">Главная</a></li>
+          <li><a href="/cart">Корзина</a></li>
+        </ul>
+      </nav>
+      <h1>Оплата заказа</h1>
+    </header>
+
+    <main>
+      <form action="#" method="post">
+        <fieldset>
+          <legend>Плательщик</legend>
+          <label>Имя
+            <input type="text" name="name" required>
+          </label>
+          <label>Email
+            <input type="email" name="email" required>
+          </label>
+        </fieldset>
+        <fieldset>
+          <legend>Оплата</legend>
+          <label>Номер карты
+            <input type="text" name="card" inputmode="numeric" minlength="16" maxlength="16" required>
+          </label>
+          <label>Срок
+            <input type="month" name="exp" required>
+          </label>
+          <label>CVV
+            <input type="password" name="cvv" minlength="3" maxlength="4" required>
+          </label>
+        </fieldset>
+        <button type="submit">Оплатить</button>
+      </form>
+    </main>
+
+    <footer>
+      <p><a href="/">На главную</a></p>
+    </footer>
+  </body>
+</html>
