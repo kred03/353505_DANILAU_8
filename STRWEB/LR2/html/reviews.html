@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Отзывы — ЛР1 HTML</title>
+    <meta name="description" content="Отзывы пользователей и форма отправки.">
+    <link rel="icon" href="/static/images/favicon.ico">
+    <link rel="stylesheet" href="/static/css/style.css">
+    <link rel="stylesheet" href="/static/css/components.css">
+    <link rel="stylesheet" href="/static/css/pages.css">
+    <link rel="stylesheet" href="/static/css/animations.css">
+    <link rel="stylesheet" href="/static/css/selectors.css">
+    <link rel="stylesheet" href="/static/css/pseudo.css">
+  </head>
+  <body class="reviews-page">
+    <header>
+      <nav>
+        <ul>
+          <li><a href="/">Главная</a></li>
+        </ul>
+      </nav>
+      <h1>Отзывы</h1>
+    </header>
+
+    <main>
+      <section aria-labelledby="review-list">
+        <h2 id="review-list">Список отзывов</h2>
+        <article class="review">
+          <div class="review-header">
+            <h3 class="review-author">Иван</h3>
+            <div class="review-rating">Оценка: 5</div>
+          </div>
+          <p class="review-text">Отличное место! Очень понравилось посещение зоопарка. Животные ухоженные, территория чистая.</p>
+          <p class="review-date"><time datetime="2025-09-30">30.09.2025</time></p>
+        </article>
+        <article class="review">
+          <div class="review-header">
+            <h3 class="review-author">Мария</h3>
+            <div class="review-rating">Оценка: 4</div>
+          </div>
+          <p class="review-text">Хороший зоопарк, много интересных животных. Единственное - хотелось бы больше информации о каждом животном.</p>
+          <p class="review-date"><time datetime="2025-09-29">29.09.2025</time></p>
+        </article>
+      </section>
+
+      <section aria-labelledby="review-form">
+        <h2 id="review-form">Оставить отзыв</h2>
+        <form action="#" method="post" class="review-form">
+          <div class="form-group">
+            <label>Имя
+              <input type="text" name="username" required>
+            </label>
+          </div>
+          <div class="form-group">
+            <label>Email
+              <input type="email" name="email">
+            </label>
+          </div>
+          <div class="form-group">
+            <label>Оценка
+              <select name="rating" required>
+                <option value="">Выберите</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+              </select>
+            </label>
+          </div>
+          <div class="form-group">
+            <label>Текст отзыва
+              <textarea name="text" rows="4" required></textarea>
+            </label>
+          </div>
+          <button type="submit">Отправить</button>
+        </form>
+      </section>
+    </main>
+
+    <footer>
+      <p><a href="/">На главную</a></p>
+    </footer>
+  </body>
+</html>

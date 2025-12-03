@@ -1,0 +1,224 @@
+{% extends 'core/base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container mt-4">
+    <h2 class="mb-4">Статистика зоопарка</h2>
+
+    <!-- Основные показатели -->
+    <div class="row mb-4">
+        <div class="col-md-3">
+            <div class="card h-100">
+                <div class="card-body text-center">
+                    <h5 class="card-title">Всего животных</h5>
+                    <p class="display-4 mb-0">{{ total_animals }}</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card h-100">
+                <div class="card-body text-center">
+                    <h5 class="card-title">Помещений</h5>
+                    <p class="display-4 mb-0">{{ total_enclosures }}</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card h-100">
+                <div class="card-body text-center">
+                    <h5 class="card-title">Сотрудников</h5>
+                    <p class="display-4 mb-0">{{ total_employees }}</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card h-100">
+                <div class="card-body text-center">
+                    <h5 class="card-title">Кормлений в день</h5>
+                    <p class="display-4 mb-0">{{ feedings_per_day }}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Графики -->
+    <div class="row mb-4">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="card-title mb-0">Животные по классам</h5>
+                </div>
+                <div class="card-body">
+                    <canvas id="animalsByClassChart"></canvas>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="card-title mb-0">Заполненность помещений</h5>
+                </div>
+                <div class="card-body">
+                    <canvas id="enclosuresChart"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Статистика по кормлениям -->
+    <div class="card mb-4">
+        <div class="card-header">
+            <h5 class="card-title mb-0">Статистика кормлений</h5>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Вид корма</th>
+                            <th>Количество кормлений</th>
+                            <th>Общий вес (кг)</th>
+                            <th>Средний вес</th>
+                            <th>Доля в рационе</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for stat in feeding_stats %}
+                        <tr>
+                            <td>{{ stat.feed_type__name }}</td>
+                            <td>{{ stat.feeding_count }}</td>
+                            <td>{{ stat.total_amount|floatformat:1 }} кг</td>
+                            <td>{{ stat.avg_amount|floatformat:2 }} кг</td>
+                            <td>
+                                {% widthratio stat.feeding_count total_feedings 100 as percentage %}
+                                <div class="progress">
+                                    <div class="progress-bar" role="progressbar" 
+                                         style="width: {{ percentage }}%"
+                                         aria-valuenow="{{ percentage }}" 
+                                         aria-valuemin="0" 
+                                         aria-valuemax="100">
+                                        {{ percentage }}%
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- Статистика по сотрудникам -->
+    <div class="card mb-4">
+        <div class="card-header">
+            <h5 class="card-title mb-0">Активность сотрудников</h5>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Сотрудник</th>
+                            <th>Проведено кормлений</th>
+                            <th>Занимаемых животных</th>
+                            <th>Помещений в работе</th>
+                            <th>Эффективность</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for stat in employee_stats %}
+                        <tr>
+                            <td>{{ stat.employee__user__first_name }} {{ stat.employee__user__last_name }}</td>
+                            <td>{{ stat.feeding_count }}</td>
+                            <td>{{ stat.animal_count }}</td>
+                            <td>{{ stat.enclosure_count }}</td>
+                            <td>
+                                {% widthratio stat.efficiency 1 1 as efficiency %}
+                                <div class="progress">
+                                    <div class="progress-bar bg-success" role="progressbar" 
+                                         style="width: {{ efficiency }}%"
+                                         aria-valuenow="{{ efficiency }}" 
+                                         aria-valuemin="0" 
+                                         aria-valuemax="100">
+                                        {{ efficiency }}%
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Chart.js -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // График животных по классам
+    const animalsCtx = document.getElementById('animalsByClassChart').getContext('2d');
+    new Chart(animalsCtx, {
+        type: 'pie',
+        data: {
+            labels: {{ animal_classes|safe }},
+            datasets: [{
+                data: {{ animals_by_class|safe }},
+                backgroundColor: [
+                    'rgba(255, 99, 132, 0.8)',
+                    'rgba(54, 162, 235, 0.8)',
+                    'rgba(255, 206, 86, 0.8)',
+                    'rgba(75, 192, 192, 0.8)',
+                    'rgba(153, 102, 255, 0.8)'
+                ]
+            }]
+        },
+        options: {
+            responsive: true,
+            plugins: {
+                title: {
+                    display: true,
+                    text: 'Распределение животных по классам'
+                }
+            }
+        }
+    });
+
+    // График заполненности помещений
+    const enclosuresCtx = document.getElementById('enclosuresChart').getContext('2d');
+    new Chart(enclosuresCtx, {
+        type: 'bar',
+        data: {
+            labels: {{ enclosure_names|safe }},
+            datasets: [{
+                label: 'Заполненность (%)',
+                data: {{ enclosure_occupancy|safe }},
+                backgroundColor: 'rgba(75, 192, 192, 0.8)'
+            }]
+        },
+        options: {
+            responsive: true,
+            plugins: {
+                title: {
+                    display: true,
+                    text: 'Заполненность помещений'
+                }
+            },
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    max: 100,
+                    ticks: {
+                        callback: function(value) {
+                            return value + '%';
+                        }
+                    }
+                }
+            }
+        }
+    });
+});
+</script>
+{% endblock %} 

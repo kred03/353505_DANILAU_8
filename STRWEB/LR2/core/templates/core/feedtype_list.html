@@ -1,0 +1,44 @@
+{% extends 'core/base.html' %}
+{% block title %}Виды корма - {{ block.super }}{% endblock %}
+{% block content %}
+<div class="container mt-4">
+    <h1 class="mb-4 text-center">Виды корма</h1>
+    {% if user.is_superuser %}
+        <a href="{% url 'feedtype-create' %}" class="btn btn-primary mb-3">Добавить корм</a>
+    {% endif %}
+    <div class="row">
+        {% for feed in feedtypes %}
+        <div class="col-md-4 mb-4">
+            <div class="card h-100 shadow-sm">
+                <div class="card-body">
+                    <h5 class="card-title">{{ feed.name }}</h5>
+                    <p class="mb-1"><strong>Описание:</strong> {{ feed.description|truncatewords:15|default:'—' }}</p>
+                    <p class="mb-1"><strong>Животных, употребляющих этот корм:</strong> {{ feed.animal_set.count }}</p>
+                    {% if user.is_superuser %}
+                        <a href="{% url 'feedtype-update' feed.pk %}" class="btn btn-outline-secondary btn-sm">Редактировать</a>
+                        <a href="{% url 'feedtype-delete' feed.pk %}" class="btn btn-outline-danger btn-sm">Удалить</a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        {% empty %}
+        <div class="col-12">
+            <p class="text-center text-muted">Нет видов корма для отображения.</p>
+        </div>
+        {% endfor %}
+    </div>
+    {% if is_paginated %}
+    <nav>
+        <ul class="pagination justify-content-center">
+            {% if page_obj.has_previous %}
+            <li class="page-item"><a class="page-link" href="?page={{ page_obj.previous_page_number }}">Назад</a></li>
+            {% endif %}
+            <li class="page-item disabled"><span class="page-link">Страница {{ page_obj.number }} из {{ page_obj.paginator.num_pages }}</span></li>
+            {% if page_obj.has_next %}
+            <li class="page-item"><a class="page-link" href="?page={{ page_obj.next_page_number }}">Вперёд</a></li>
+            {% endif %}
+        </ul>
+    </nav>
+    {% endif %}
+</div>
+{% endblock %} 

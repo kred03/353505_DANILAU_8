@@ -1,0 +1,47 @@
+{% extends 'core/base.html' %}
+{% block title %}Помещения - {{ block.super }}{% endblock %}
+{% block content %}
+<div class="container mt-4">
+    <h1 class="mb-4 text-center">Помещения зоопарка</h1>
+    {% if user.is_superuser %}
+        <a href="{% url 'enclosure-create' %}" class="btn btn-primary mb-3">Добавить помещение</a>
+    {% endif %}
+    <div class="row">
+        {% for enclosure in enclosures %}
+        <div class="col-md-4 mb-4">
+            <div class="card h-100 shadow-sm">
+                <div class="card-body">
+                    <h5 class="card-title">{{ enclosure.name }}</h5>
+                    <p class="mb-1"><strong>Номер:</strong> {{ enclosure.number }}</p>
+                    <p class="mb-1"><strong>Площадь:</strong> {{ enclosure.area }} м²</p>
+                    <p class="mb-1"><strong>Водоем:</strong> {% if enclosure.has_water %}Да{% else %}Нет{% endif %}</p>
+                    <p class="mb-1"><strong>Описание:</strong> {{ enclosure.description|truncatewords:15|default:'—' }}</p>
+                    <a href="{% url 'enclosure-detail' enclosure.pk %}" class="btn btn-outline-primary mt-2">Подробнее</a>
+                    {% if user.is_superuser %}
+                        <a href="{% url 'enclosure-update' enclosure.pk %}" class="btn btn-outline-secondary btn-sm">Редактировать</a>
+                        <a href="{% url 'enclosure-delete' enclosure.pk %}" class="btn btn-outline-danger btn-sm">Удалить</a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        {% empty %}
+        <div class="col-12">
+            <p class="text-center text-muted">Нет помещений для отображения.</p>
+        </div>
+        {% endfor %}
+    </div>
+    {% if is_paginated %}
+    <nav>
+        <ul class="pagination justify-content-center">
+            {% if page_obj.has_previous %}
+            <li class="page-item"><a class="page-link" href="?page={{ page_obj.previous_page_number }}">Назад</a></li>
+            {% endif %}
+            <li class="page-item disabled"><span class="page-link">Страница {{ page_obj.number }} из {{ page_obj.paginator.num_pages }}</span></li>
+            {% if page_obj.has_next %}
+            <li class="page-item"><a class="page-link" href="?page={{ page_obj.next_page_number }}">Вперёд</a></li>
+            {% endif %}
+        </ul>
+    </nav>
+    {% endif %}
+</div>
+{% endblock %} 

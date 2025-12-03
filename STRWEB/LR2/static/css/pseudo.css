@@ -1,0 +1,475 @@
+/* Псевдоклассы и псевдоэлементы */
+
+/* Псевдоклассы для ссылок */
+a:link {
+  color: var(--secondary-color);
+  text-decoration: none;
+}
+
+a:visited {
+  color: #6c757d;
+}
+
+a:hover {
+  color: var(--primary-color);
+  text-decoration: underline;
+}
+
+a:active {
+  color: var(--accent-color);
+  transform: scale(0.98);
+}
+
+/* Псевдоклассы для фокуса */
+a:focus,
+button:focus,
+input:focus,
+select:focus,
+textarea:focus {
+  outline: 2px solid var(--secondary-color);
+  outline-offset: 2px;
+  box-shadow: 0 0 0 3px rgba(74, 124, 89, 0.1);
+}
+
+/* Псевдоклассы для позиционирования в списках и таблицах */
+/* Первый элемент */
+li:first-child {
+  font-weight: bold;
+  color: var(--primary-color);
+}
+
+tr:first-child {
+  background-color: var(--secondary-color);
+  color: var(--white);
+}
+
+/* Последний элемент */
+li:last-child {
+  font-style: italic;
+  color: var(--secondary-color);
+}
+
+tr:last-child {
+  border-bottom: 3px solid var(--primary-color);
+}
+
+/* N-й элемент */
+li:nth-child(2n) {
+  background-color: rgba(44, 85, 48, 0.1);
+  padding: 0.25rem;
+  border-radius: 3px;
+}
+
+tr:nth-child(odd) {
+  background-color: rgba(248, 249, 250, 0.5);
+}
+
+tr:nth-child(even) {
+  background-color: var(--white);
+}
+
+/* Специфичные n-е элементы */
+li:nth-child(3n) {
+  border-left: 3px solid var(--accent-color);
+  padding-left: 0.5rem;
+}
+
+tr:nth-child(4n+1) {
+  background-color: rgba(74, 124, 89, 0.1);
+}
+
+/* Псевдоклассы для состояний форм */
+input:required {
+  border-left: 4px solid var(--accent-color);
+  background-color: rgba(139, 69, 19, 0.05);
+}
+
+input:optional {
+  border-left: 4px solid var(--border-color);
+}
+
+input:disabled {
+  background-color: #f8f9fa;
+  color: #6c757d;
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+input:enabled {
+  background-color: var(--white);
+  cursor: text;
+}
+
+/* Валидация форм */
+input:valid {
+  border-color: #28a745;
+  box-shadow: 0 0 0 3px rgba(40, 167, 69, 0.1);
+}
+
+input:invalid {
+  border-color: #dc3545;
+  box-shadow: 0 0 0 3px rgba(220, 53, 69, 0.1);
+}
+
+/* Диапазон значений */
+input[type="range"]:in-range {
+  border-color: #28a745;
+}
+
+input[type="range"]:out-of-range {
+  border-color: #dc3545;
+}
+
+/* Чекбоксы и радиокнопки */
+input[type="checkbox"]:checked {
+  background-color: var(--secondary-color);
+  border-color: var(--secondary-color);
+}
+
+input[type="radio"]:checked {
+  background-color: var(--secondary-color);
+  border-color: var(--secondary-color);
+}
+
+input[type="checkbox"]:indeterminate {
+  background-color: var(--accent-color);
+  border-color: var(--accent-color);
+}
+
+/* Псевдоклассы для языков (кавычки) */
+q:lang(ru)::before {
+  content: '«';
+  color: var(--secondary-color);
+  font-weight: bold;
+}
+
+q:lang(ru)::after {
+  content: '»';
+  color: var(--secondary-color);
+  font-weight: bold;
+}
+
+q:lang(en)::before {
+  content: '"';
+  color: var(--secondary-color);
+}
+
+q:lang(en)::after {
+  content: '"';
+  color: var(--secondary-color);
+}
+
+/* Псевдоэлементы */
+
+/* Первая буква и первая строка */
+article p:first-of-type::first-letter {
+  font-size: 3rem;
+  font-weight: bold;
+  color: var(--primary-color);
+  float: left;
+  line-height: 1;
+  margin: 0.1rem 0.5rem 0 0;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+  font-family: serif;
+}
+
+article p:first-of-type::first-line {
+  font-weight: 600;
+  color: var(--primary-color);
+  letter-spacing: 1px;
+}
+
+/* Контекстное содержимое (before/after) */
+.quote::before {
+  content: '"';
+  font-size: 2rem;
+  color: var(--secondary-color);
+  margin-right: 0.5rem;
+  font-family: serif;
+  opacity: 0.7;
+}
+
+.quote::after {
+  content: '"';
+  font-size: 2rem;
+  color: var(--secondary-color);
+  margin-left: 0.5rem;
+  font-family: serif;
+  opacity: 0.7;
+}
+
+/* Маркеры списков */
+.unicode-list {
+  list-style: none;
+}
+
+.unicode-list li::before {
+  content: '🐾 ';
+  margin-right: 0.5rem;
+  font-size: 1.2rem;
+}
+
+.unicode-list li:nth-child(2n)::before {
+  content: '🌿 ';
+}
+
+.unicode-list li:nth-child(3n)::before {
+  content: '🦋 ';
+}
+
+.unicode-list li:nth-child(4n)::before {
+  content: '🦁 ';
+}
+
+/* Дополнительные псевдоэлементы для контента */
+.btn::before {
+  content: '→ ';
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.btn:hover::before {
+  opacity: 1;
+}
+
+.btn::after {
+  content: ' ←';
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.btn:hover::after {
+  opacity: 1;
+}
+
+/* Специальные маркеры для разных типов списков */
+
+/* Стилизация выделения текста */
+::selection {
+  background-color: var(--secondary-color);
+  color: var(--white);
+  text-shadow: none;
+}
+
+::-moz-selection {
+  background-color: var(--secondary-color);
+  color: var(--white);
+  text-shadow: none;
+}
+
+/* Дополнительные псевдоэлементы для навигации */
+.nav-item::before {
+  content: '';
+  position: absolute;
+  bottom: -5px;
+  left: 50%;
+  width: 0;
+  height: 2px;
+  background: var(--white);
+  transition: all 0.3s ease;
+  transform: translateX(-50%);
+}
+
+.nav-item:hover::before {
+  width: 100%;
+}
+
+/* Псевдоэлементы для карточек */
+.card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(45deg, transparent, rgba(255,255,255,0.1), transparent);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  border-radius: 10px;
+}
+
+.card:hover::before {
+  opacity: 1;
+}
+
+/* Псевдоэлементы для уведомлений */
+.notification::before {
+  content: 'ℹ️ ';
+  margin-right: 0.5rem;
+}
+
+.notification.success::before {
+  content: '✅ ';
+}
+
+.notification.error::before {
+  content: '❌ ';
+}
+
+.notification.warning::before {
+  content: '⚠️ ';
+}
+
+/* Псевдоэлементы для статусов */
+.status::after {
+  content: '';
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  margin-left: 0.5rem;
+}
+
+.status.active::after {
+  background-color: #28a745;
+}
+
+.status.inactive::after {
+  background-color: #6c757d;
+}
+
+.status.pending::after {
+  background-color: #ffc107;
+}
+
+/* Псевдоэлементы для загрузки */
+.loading::after {
+  content: '';
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  border: 2px solid var(--border-color);
+  border-top: 2px solid var(--secondary-color);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin-left: 0.5rem;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Псевдоэлементы для ссылок */
+a[href^="mailto:"]::before {
+  content: '📧 ';
+  margin-right: 0.25rem;
+}
+
+a[href^="tel:"]::before {
+  content: '📞 ';
+  margin-right: 0.25rem;
+}
+
+a[href^="https://"]::after {
+  content: ' ↗';
+  font-size: 0.8em;
+  color: var(--secondary-color);
+}
+
+a[download]::before {
+  content: '⬇️ ';
+  margin-right: 0.25rem;
+}
+
+/* Псевдоэлементы для форм */
+.form-group::before {
+  content: '';
+  display: block;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(90deg, var(--secondary-color), var(--primary-color));
+  margin-bottom: 1rem;
+  border-radius: 1px;
+}
+
+/* Псевдоэлементы для таблиц */
+table::before {
+  content: '📊 ';
+  font-size: 1.5rem;
+  margin-right: 0.5rem;
+}
+
+table caption::before {
+  content: '📋 ';
+  margin-right: 0.5rem;
+}
+
+/* Псевдоэлементы для медиа */
+video::before {
+  content: '🎥 ';
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  background: rgba(0, 0, 0, 0.7);
+  color: var(--white);
+  padding: 0.25rem 0.5rem;
+  border-radius: 3px;
+  font-size: 0.8rem;
+}
+
+audio::before {
+  content: '🎵 ';
+  margin-right: 0.5rem;
+}
+
+/* Псевдоэлементы для специальных блоков */
+blockquote::before {
+  content: '💭 ';
+  font-size: 1.5rem;
+  position: absolute;
+  left: -2rem;
+  top: -0.5rem;
+}
+
+blockquote::after {
+  content: '💭';
+  font-size: 1.5rem;
+  position: absolute;
+  right: -2rem;
+  bottom: -0.5rem;
+}
+
+/* Псевдоэлементы для кода */
+code::before {
+  content: '💻 ';
+  margin-right: 0.25rem;
+}
+
+pre::before {
+  content: '📝 Код:';
+  display: block;
+  background: var(--primary-color);
+  color: var(--white);
+  padding: 0.5rem;
+  margin: -1rem -1rem 1rem -1rem;
+  border-radius: 5px 5px 0 0;
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+/* Псевдоэлементы для изображений */
+img[alt*="логотип"]::after {
+  content: '🏷️';
+  position: absolute;
+  bottom: 5px;
+  right: 5px;
+  background: rgba(0, 0, 0, 0.7);
+  color: var(--white);
+  padding: 0.25rem;
+  border-radius: 3px;
+  font-size: 0.8rem;
+}
+
+/* Псевдоэлементы для времени */
+time::before {
+  content: '🕒 ';
+  margin-right: 0.25rem;
+}
+
+/* Псевдоэлементы для адресов */
+address::before {
+  content: '📍 ';
+  margin-right: 0.25rem;
+}
