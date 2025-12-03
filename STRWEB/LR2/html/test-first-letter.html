@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Тест ::first-letter и ::first-line</title>
+    <link rel="icon" href="/static/images/favicon.ico">
+    <link rel="stylesheet" href="/static/css/style.css">
+    <link rel="stylesheet" href="/static/css/components.css">
+    <link rel="stylesheet" href="/static/css/pages.css">
+    <link rel="stylesheet" href="/static/css/animations.css">
+    <link rel="stylesheet" href="/static/css/selectors.css">
+    <link rel="stylesheet" href="/static/css/pseudo.css">
+  </head>
+  <body>
+    <nav>
+      <ul>
+        <li><a href="/">Главная</a></li>
+        <li><a href="/html/news.html">Новости</a></li>
+      </ul>
+    </nav>
+
+    <main>
+      <article>
+        <h2>Демонстрация псевдоэлементов ::first-letter и ::first-line</h2>
+        <p>Это первый параграф в статье. Первая буква должна быть очень большой (3rem), жирной и цветной. Первая строка должна быть выделена жирным и с увеличенным межбуквенным интервалом. Остальной текст должен выглядеть обычным образом, но эффект первой буквы будет виден во всем абзаце.</p>
+        <p>Это второй параграф. У него не будет эффектов первой буквы и первой строки, потому что селектор применяется только к первому параграфу типа <code>p:first-of-type</code>.</p>
+        <p>Третий параграф также обычный, без особых эффектов.</p>
+      </article>
+
+      <article style="margin-top: 3rem;">
+        <h2>Вторая статья для демонстрации</h2>
+        <p>Первая буква этого абзаца также должна быть большой и выделенной. Первая строка должна отличаться от остального текста. Это демонстрирует, что spacing работает независимо для каждой статьи на странице.</p>
+        <p>Последующие параграфы без эффектов.</p>
+      </article>
+    </main>
+
+    <footer>
+      <p>© Зоопарк | <a href="/html/news.html">Вернуться к новостям</a></p>
+    </footer>
+  </body>
+</html>
+

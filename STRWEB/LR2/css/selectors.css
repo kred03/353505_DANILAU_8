@@ -1,0 +1,446 @@
+/* Дополнительные селекторы для выполнения требований лабораторной */
+
+/* Селекторы элементов */
+body {
+  font-family: 'Inter', sans-serif;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  color: var(--primary-color);
+}
+
+p {
+  line-height: 1.6;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+/* Селекторы атрибутов */
+/* Селекторы атрибутов, начинающихся с подстроки */
+[class^="btn-"] {
+  display: inline-block;
+  padding: 0.5rem 1rem;
+  border-radius: 5px;
+  text-decoration: none;
+  transition: var(--transition);
+}
+
+[class^="btn-"]:hover {
+  transform: translateY(-2px);
+}
+
+/* Селекторы атрибутов, заканчивающихся подстрокой */
+[class$="-primary"] {
+  background-color: var(--primary-color);
+  color: var(--white);
+}
+
+[class$="-secondary"] {
+  background-color: var(--secondary-color);
+  color: var(--white);
+}
+
+/* Селекторы атрибутов с конкретным значением */
+[type="text"] {
+  border: 2px solid var(--border-color);
+  padding: 0.5rem;
+  border-radius: 5px;
+}
+
+[type="email"] {
+  border: 2px solid var(--border-color);
+  padding: 0.5rem;
+  border-radius: 5px;
+}
+
+[type="submit"] {
+  background-color: var(--secondary-color);
+  color: var(--white);
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+[type="submit"]:hover {
+  background-color: var(--primary-color);
+}
+
+/* Селекторы классов */
+.btn {
+  display: inline-block;
+  padding: 0.75rem 1.5rem;
+  border-radius: 5px;
+  text-decoration: none;
+  font-weight: 500;
+  transition: var(--transition);
+}
+
+.btn-primary {
+  background-color: var(--primary-color);
+  color: var(--white);
+}
+
+.btn-secondary {
+  background-color: var(--secondary-color);
+  color: var(--white);
+}
+
+.btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.card {
+  background: var(--white);
+  border-radius: 10px;
+  padding: 1.5rem;
+  box-shadow: var(--shadow);
+  transition: var(--transition);
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+}
+
+/* Комбинации селекторов */
+/* Объединение селекторов (И) */
+h1.primary,
+h2.primary,
+h3.primary {
+  color: var(--primary-color);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}
+
+/* Селекторы потомков */
+nav ul {
+  list-style: none;
+  display: flex;
+  gap: 2rem;
+}
+
+nav ul li {
+  position: relative;
+}
+
+nav ul li a {
+  padding: 0.5rem 1rem;
+  border-radius: 5px;
+  transition: var(--transition);
+}
+
+/* Селекторы дочерних элементов */
+section > h2 {
+  border-bottom: 3px solid var(--secondary-color);
+  padding-bottom: 0.5rem;
+  margin-bottom: 2rem;
+}
+
+article > header {
+  margin-bottom: 1rem;
+}
+
+/* Селекторы соседних элементов */
+h1 + p {
+  margin-top: 0;
+  font-size: 1.2rem;
+  color: var(--secondary-color);
+}
+
+h2 + p {
+  margin-top: 0.5rem;
+  font-style: italic;
+}
+
+/* Селекторы следующих элементов */
+h2 ~ p {
+  margin-left: 1rem;
+  border-left: 3px solid var(--accent-color);
+  padding-left: 1rem;
+}
+
+/* Дополнительные селекторы атрибутов */
+/* Атрибуты с определенным значением */
+[lang="ru"] {
+  font-family: 'Inter', sans-serif;
+}
+
+[target="_blank"] {
+  position: relative;
+}
+
+[target="_blank"]::after {
+  content: ' ↗';
+  font-size: 0.8em;
+  color: var(--secondary-color);
+}
+
+/* Атрибуты, содержащие подстроку */
+[class*="container"] {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+[class*="grid"] {
+  display: grid;
+  gap: 2rem;
+}
+
+/* Атрибуты, начинающиеся с определенного значения */
+[href^="mailto:"] {
+  color: var(--secondary-color);
+  text-decoration: underline;
+}
+
+[href^="tel:"] {
+  color: var(--primary-color);
+  font-weight: 500;
+}
+
+/* Атрибуты, заканчивающиеся определенным значением */
+[href$=".pdf"] {
+  position: relative;
+}
+
+[href$=".pdf"]::before {
+  content: '📄 ';
+  margin-right: 0.25rem;
+}
+
+[href$=".doc"]::before,
+[href$=".docx"]::before {
+  content: '📝 ';
+  margin-right: 0.25rem;
+}
+
+/* Селекторы по типу атрибута */
+[download] {
+  background: var(--accent-color);
+  color: var(--white);
+  padding: 0.25rem 0.5rem;
+  border-radius: 3px;
+  font-size: 0.9rem;
+}
+
+[required] {
+  border-left: 4px solid var(--accent-color);
+}
+
+[disabled] {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* Сложные комбинации селекторов */
+/* Родитель + дочерний элемент */
+.container > .row {
+  display: flex;
+  flex-wrap: wrap;
+  margin: 0 -0.5rem;
+}
+
+.container > .row > * {
+  flex: 1;
+  padding: 0 0.5rem;
+}
+
+/* Селектор потомка с классом */
+article .highlight {
+  background: rgba(255, 255, 0, 0.3);
+  padding: 0.25rem;
+  border-radius: 3px;
+}
+
+/* Селектор по атрибуту и классу */
+input[type="text"].error {
+  border-color: #dc3545;
+  box-shadow: 0 0 0 3px rgba(220, 53, 69, 0.1);
+}
+
+input[type="text"].success {
+  border-color: #28a745;
+  box-shadow: 0 0 0 3px rgba(40, 167, 69, 0.1);
+}
+
+/* Селекторы для форм */
+form input[type="text"]:focus,
+form input[type="email"]:focus,
+form textarea:focus {
+  outline: none;
+  border-color: var(--secondary-color);
+  box-shadow: 0 0 0 3px rgba(74, 124, 89, 0.1);
+}
+
+form input:invalid {
+  border-color: #dc3545;
+}
+
+form input:valid {
+  border-color: #28a745;
+}
+
+/* Селекторы для таблиц */
+table tr:nth-child(odd) {
+  background-color: rgba(248, 249, 250, 0.5);
+}
+
+table tr:hover {
+  background-color: rgba(44, 85, 48, 0.05);
+}
+
+table td:first-child {
+  font-weight: 600;
+  color: var(--primary-color);
+}
+
+table td:last-child {
+  text-align: right;
+}
+
+/* Селекторы для списков */
+ul li:first-child {
+  font-weight: bold;
+  color: var(--primary-color);
+}
+
+ul li:last-child {
+  font-style: italic;
+  color: var(--secondary-color);
+}
+
+ol li:nth-child(2n) {
+  background-color: rgba(44, 85, 48, 0.1);
+  padding: 0.25rem;
+  border-radius: 3px;
+}
+
+/* Селекторы для изображений */
+img[alt*="логотип"] {
+  border-radius: 10px;
+  box-shadow: var(--shadow);
+}
+
+img[alt*="баннер"] {
+  width: 100%;
+  height: auto;
+  border-radius: 10px;
+}
+
+/* Селекторы для ссылок */
+a[href^="#"] {
+  color: var(--accent-color);
+  text-decoration: none;
+  border-bottom: 1px dotted var(--accent-color);
+}
+
+a[href^="#"]:hover {
+  border-bottom: 1px solid var(--accent-color);
+}
+
+/* Селекторы для медиа элементов */
+video[controls] {
+  border-radius: 10px;
+  box-shadow: var(--shadow);
+}
+
+audio[controls] {
+  width: 100%;
+  border-radius: 10px;
+}
+
+/* Селекторы для специфичных элементов */
+figure img {
+  border-radius: 10px;
+  box-shadow: var(--shadow);
+}
+
+figcaption {
+  text-align: center;
+  font-style: italic;
+  color: var(--secondary-color);
+  margin-top: 0.5rem;
+}
+
+/* Селекторы для контейнеров */
+[role="main"] {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem 1rem;
+}
+
+[role="banner"] {
+  background: var(--white);
+  box-shadow: var(--shadow);
+  padding: 1rem;
+}
+
+[role="contentinfo"] {
+  background: var(--primary-color);
+  color: var(--white);
+  text-align: center;
+  padding: 2rem;
+  margin-top: 3rem;
+}
+
+/* Селекторы для accessibility */
+[aria-label] {
+  position: relative;
+}
+
+[aria-hidden="true"] {
+  display: none;
+}
+
+/* Селекторы для специфичных классов */
+.hero-section > h1 {
+  font-size: 3rem;
+  text-align: center;
+  margin-bottom: 1rem;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.sidebar .widget {
+  background: var(--white);
+  border-radius: 10px;
+  padding: 1.5rem;
+  margin-bottom: 2rem;
+  box-shadow: var(--shadow);
+}
+
+/* Селекторы для состояний */
+.is-active {
+  background-color: var(--secondary-color);
+  color: var(--white);
+}
+
+.is-hidden {
+  display: none;
+}
+
+.is-visible {
+  display: block;
+}
+
+/* Селекторы для размеров */
+.small {
+  font-size: 0.875rem;
+}
+
+.medium {
+  font-size: 1rem;
+}
+
+.large {
+  font-size: 1.25rem;
+}
+
+.extra-large {
+  font-size: 1.5rem;
+}
