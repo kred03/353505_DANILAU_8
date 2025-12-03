@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Тест стилей</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #2c5530, #4a7c59);
+            color: white;
+            margin: 0;
+            padding: 20px;
+        }
+        
+        h1 {
+            color: #ffd700;
+            text-align: center;
+            font-size: 3rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+        
+        .test-box {
+            background: white;
+            color: #2c5530;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+        
+        .btn {
+            background: #4a7c59;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .btn:hover {
+            background: #2c5530;
+            transform: translateY(-2px);
+        }
+    </style>
+</head>
+<body>
+    <h1>🎉 Стили работают!</h1>
+    
+    <div class="test-box">
+        <h2>Тестовая страница</h2>
+        <p>Если вы видите эту страницу с красивыми стилями, значит CSS работает корректно!</p>
+        <button class="btn">Тестовая кнопка</button>
+    </div>
+    
+    <div class="test-box">
+        <h3>Инструкции:</h3>
+        <ol>
+            <li>Если стили работают здесь, значит проблема в путях к CSS файлам</li>
+            <li>Попробуйте открыть: <a href="index.html" style="color: #4a7c59;">index.html</a></li>
+            <li>Или откройте: <a href="html/index.html" style="color: #4a7c59;">html/index.html</a></li>
+        </ol>
+    </div>
+</body>
+</html>

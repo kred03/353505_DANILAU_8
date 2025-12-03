@@ -1,0 +1,155 @@
+<!doctype html>
+<html lang="ru" itemscope itemtype="https://schema.org/Organization">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="О компании: информация, логотип, история, реквизиты, сертификат.">
+    <link rel="icon" href="/static/images/favicon.ico">
+    <title>О компании — ЛР1 HTML</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+    <link rel="stylesheet" href="/static/css/components.css">
+    <link rel="stylesheet" href="/static/css/pages.css">
+    <link rel="stylesheet" href="/static/css/animations.css">
+    <link rel="stylesheet" href="/static/css/selectors.css">
+    <link rel="stylesheet" href="/static/css/pseudo.css">
+  </head>
+  <body>
+    <header>
+      <nav>
+        <ul>
+          <li><a href="/">Главная</a></li>
+          <li><a href="/news-min">Новости</a></li>
+        </ul>
+      </nav>
+      <h1 itemprop="name">Компания «Зоопарк»</h1>
+      <img src="/static/images/logo.png" alt="Логотип" width="120" itemprop="logo" class="logo">
+    </header>
+
+    <main>
+      <section aria-labelledby="about-text">
+        <h2 id="about-text">Информация о компании</h2>
+        <p itemprop="description">Краткая информация о компании, её миссии и услугах.</p>
+      </section>
+
+      <section aria-labelledby="history">
+        <h2 id="history">История по годам</h2>
+        <ol class="history-list">
+          <li><time datetime="2020">2020</time> — Основание компании.</li>
+          <li><time datetime="2023">2023</time> — Запуск онлайн‑сервиса.</li>
+          <li><time datetime="2025">2025</time> — Обновление каталога.</li>
+        </ol>
+      </section>
+
+      <section aria-labelledby="requisites">
+        <h2 id="requisites">Реквизиты</h2>
+        <table class="requisites-table">
+          <caption>Таблица реквизитов компании</caption>
+          <thead>
+            <tr>
+              <th scope="col">Параметр</th>
+              <th scope="col">Значение</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><abbr title="Идентификационный номер налогоплательщика">ИНН</abbr></td>
+              <td>1234567890</td>
+            </tr>
+            <tr>
+              <td><abbr title="Основной государственный регистрационный номер">ОГРН</abbr></td>
+              <td>1098765432100</td>
+            </tr>
+            <tr>
+              <td>Адрес</td>
+              <td itemprop="address">г. Минск, ул. Зоологическая, 1</td>
+            </tr>
+            <tr>
+              <td>Телефон</td>
+              <td>+375 17 123-45-67</td>
+            </tr>
+            <tr>
+              <td>Email</td>
+              <td>info@zoo-minsk.by</td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+
+      <section aria-labelledby="poem" class="poem-section">
+        <h2 id="poem">Пример четверостишия</h2>
+        
+        <div class="poem-example">
+          <p>Фиксированные переносы строк через pre:</p>
+          <pre class="poem-pre">
+В тиши вольеров слышен дальний звон,
+И ветер листья в кронах перебросит,
+Пускай становимся добрее мы
+От взгляда тёплых, умных глаз заносчивых.
+          </pre>
+        </div>
+        
+        <div class="poem-example">
+          <p>Потенциальные переносы (optional) через wbr внутри длинных словосочетаний:</p>
+          <div class="wbr-example">
+            Длиннофразное<wbr>описание<wbr>событий<wbr>зоопарка может переноситься по возможным точкам.
+          </div>
+        </div>
+      </section>
+
+      <section aria-labelledby="links">
+        <h2 id="links">Примеры ссылок</h2>
+        <ul>
+          <li>Внутренняя: <a href="/news-min">Новости</a></li>
+          <li>Внешняя: <a href="https://example.com" target="_blank" rel="noopener">Открыть сайт партнёра</a></li>
+          <li>Якорная: <a href="#history">К разделу «История»</a></li>
+          <li>Email: <a href="mailto:info@example.com">info@example.com</a></li>
+          <li>Телефон: <a href="tel:+375291112233">+375 29 111 22 33</a></li>
+          <li>Скачать документ: <a href="/static/images/ads/PZ2_classification_filled.docx" download>Классификация (DOCX)</a></li>
+          <li>Скачать таблицу: <a href="/static/images/ads/PZ2_classification_filled.xlsx" download>Классификация (XLSX)</a></li>
+        </ul>
+      </section>
+
+      <section aria-labelledby="certificate">
+        <h2 id="certificate">Сертификат</h2>
+        <div class="certificate">
+          <h2>СЕРТИФИКАТ О ЧЛЕНСТВЕ В РТА</h2>
+          <p class="subtitle">(РЕЕСТР ТУРИСТИЧЕСКИХ АГЕНТСТВ)</p>
+          <p class="subtitle">АССОЦИАЦИИ ТУРПОМОЩЬ</p>
+          <h1 class="certificate-title">СВИДЕТЕЛЬСТВО</h1>
+          <p>о внесении сведений</p>
+          <div class="company-info">
+            <div>г. Минск</div>
+            <div>17 января 2025</div>
+          </div>
+          <p><strong>Общество с ограниченной ответственностью «Зоопарк»</strong></p>
+          <p>(ИНН 1234567890)</p>
+        </div>
+      </section>
+
+      <section aria-labelledby="media">
+        <h2 id="media">Медиа</h2>
+        <p>Видео и аудио материалы:</p>
+        <div class="media-container">
+          <video controls width="480">
+            <source src="../videos/zoo-intro.mp4" type="video/mp4">
+            <source src="../videos/zoo-intro.webm" type="video/webm">
+          </video>
+          <audio controls>
+            <source src="../audio/zoo-tour.mp3" type="audio/mpeg">
+            <source src="../audio/zoo-tour.ogg" type="audio/ogg">
+          </audio>
+        </div>
+      </section>
+
+      <section aria-labelledby="map">
+        <h2 id="map">Карта (iframe)</h2>
+        <iframe title="Пример карты" src="https://www.openstreetmap.org/export/embed.html" width="600" height="300"></iframe>
+      </section>
+    </main>
+
+    <footer>
+      <address itemprop="email">info@example.com</address>
+      <p><a href="/">На главную</a></p>
+    </footer>
+  </body>
+  </html>

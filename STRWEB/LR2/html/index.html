@@ -1,0 +1,214 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Главная страница лабораторной работы. Логотип, баннер, каталог, новости, партнёры.">
+    <link rel="icon" href="/static/images/favicon.ico">
+    <title>Главная — ЛР1 HTML</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+    <link rel="stylesheet" href="/static/css/components.css">
+    <link rel="stylesheet" href="/static/css/pages.css">
+    <link rel="stylesheet" href="/static/css/animations.css">
+    <link rel="stylesheet" href="/static/css/selectors.css">
+    <link rel="stylesheet" href="/static/css/pseudo.css">
+  </head>
+  <body class="main-page">
+    <!-- Прелоадер -->
+    <div class="preloader" id="preloader">
+      <div class="preloader-content">
+        <div class="preloader-logo">ЗООПАРК</div>
+        <div class="circles-container">
+          <div class="circle-outer"></div>
+          <div class="circle-inner"></div>
+          <div class="circle-dots">
+            <div class="dot"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+          </div>
+        </div>
+        <div class="preloader-text">Загрузка...</div>
+      </div>
+    </div>
+
+    <header>
+      <a href="/">
+        <img src="/static/images/logo.png" alt="Логотип компании" width="120" height="120" class="logo">
+      </a>
+      <nav aria-label="Основная навигация">
+        <ul>
+          <li class="nav-item"><a href="/">Главная</a></li>
+          <li class="nav-item"><a href="/product">Товар</a></li>
+          <li class="nav-item"><a href="/cart">Корзина</a></li>
+          <li class="nav-item"><a href="/checkout">Оплата</a></li>
+          <li class="nav-item"><a href="/about-min">О компании</a></li>
+          <li class="nav-item"><a href="/news-min">Новости</a></li>
+          <li class="nav-item"><a href="/faq-min">Словарь</a></li>
+          <li class="nav-item"><a href="/contacts-min">Контакты</a></li>
+          <li class="nav-item"><a href="/privacy-min">Политика</a></li>
+          <li class="nav-item"><a href="/vacancies-min">Вакансии</a></li>
+          <li class="nav-item"><a href="/reviews-min">Отзывы</a></li>
+          <li class="nav-item"><a href="/promocodes-min">Промокоды</a></li>
+        </ul>
+      </nav>
+      <figure>
+        <img src="/static/images/banner.jpg" alt="Рекламный баннер" width="120">
+        <figcaption>Реклама компании в виде баннера</figcaption>
+      </figure>
+    </header>
+
+    <main>
+      <!-- Анимация панды -->
+      <section class="panda-animation">
+        <div class="panda">
+          <div class="panda-head">
+            <div class="panda-ear left"></div>
+            <div class="panda-ear right"></div>
+            <div class="panda-eye left"></div>
+            <div class="panda-eye right"></div>
+            <div class="panda-nose"></div>
+          </div>
+          <div class="panda-body">
+            <div class="panda-arm left"></div>
+            <div class="panda-arm right"></div>
+          </div>
+        </div>
+        <div class="palm-tree left">
+          <div class="palm-leaves"></div>
+        </div>
+        <div class="palm-tree right">
+          <div class="palm-leaves"></div>
+        </div>
+        <div class="zoo-title">ЗООПАРК</div>
+      </section>
+
+      <section aria-labelledby="catalog-title" class="catalog container">
+        <h1 id="catalog-title" class="primary">Каталог</h1>
+        <p translate="no" >В нашем каталоге представлены <strong class="highlight">популярные</strong> позиции; <b>некоторые</b> описания содержат <em>уточняющую информацию</em>, а новые поступления помечены <mark>новинка</mark>.</p>
+        
+        <!-- CSS Grid Layout для каталога -->
+        <div class="catalog-grid">
+          <div class="catalog-item">
+            <h3>Лев</h3>
+            <p>Король джунглей с величественной гривой</p>
+            <a href="/product#lion" class="btn btn-primary">Подробнее</a>
+          </div>
+          <div class="catalog-item">
+            <h3>Тигр</h3>
+            <p>Красивый полосатый хищник</p>
+            <a href="/product#tiger" class="btn btn-secondary">Подробнее</a>
+          </div>
+          <div class="catalog-item">
+            <h3>Жираф</h3>
+            <p>Самое высокое животное на Земле</p>
+            <a href="/product#giraffe" class="btn btn-primary">Подробнее</a>
+          </div>
+        </div>
+      </section>
+
+      <section aria-labelledby="last-article" class="article-container">
+        <h2 id="last-article">Последняя статья</h2>
+        <article>
+          <header>
+            <h3>Почему зоопарки важны</h3>
+          </header>
+          <p>Как сказал один исследователь: <q class="quote">знание о животных — это знание о нас самих</q>.</p>
+          <blockquote cite="https://example.com/long-article-about-zoos">
+            Зоопарки помогают сохранять биоразнообразие и вести образовательную работу с посетителями.
+          </blockquote>
+          <p>Источник: <cite>Журнал «Мир природы», №1</cite>.</p>
+          <p>Краткая аннотация статьи. Полный текст доступен в разделе «Новости».</p>
+          <p><a href="/news-min#article-1" class="button-animated">Читать далее</a></p>
+        </article>
+      </section>
+
+      <section aria-labelledby="partners">
+        <h2 id="partners">Партнёры</h2>
+        <div class="partners">
+          <div class="partner-item">
+            <a accesskey="k" href="https://example.com" target="_blank" rel="noopener">
+              <img src="/static/images/partner1.png" alt="Логотип партнёра 1" width="120">
+            </a>
+            <div class="partner-name">Партнёр 1</div>
+          </div>
+          <div class="partner-item">
+            <a href="https://example.com" target="_blank" rel="noopener">
+              <img src="/static/images/partner2.png" alt="Логотип партнёра 2" width="120">
+            </a>
+            <div class="partner-name">Партнёр 2</div>
+          </div>
+          <div class="partner-item">
+            <a href="https://example.com" target="_blank" rel="noopener">
+              <img src="/static/images/partner3.png" alt="Логотип партнёра 3" width="120">
+            </a>
+            <div class="partner-name">Партнёр 3</div>
+          </div>
+        </div>
+      </section>
+
+      <aside aria-labelledby="sidebar-title" class="sidebar">
+        <h2 id="sidebar-title">Дополнительно</h2>
+        <section aria-labelledby="fact-title" class="widget">
+          <h3 id="fact-title">Факт о животном</h3>
+          <p>Львы могут спать до 20 часов в сутки!</p>
+        </section>
+        <section aria-labelledby="weather-title" class="widget">
+          <h3 id="weather-title">Погода</h3>
+          <p>Сегодня: +15°C, солнечно</p>
+        </section>
+        <section aria-labelledby="code-title" class="widget">
+          <h3 id="code-title">Пример кода</h3>
+          <p>Небольшой пример запроса к API без стилей:</p>
+          <pre>
+<code>GET /api/animals HTTP/1.1
+Host: example.com
+Accept: application/json</code>
+          </pre>
+        </section>
+        <section class="widget">
+          <h3>Форма подписки</h3>
+          <form>
+            <input type="email" placeholder="Ваш email" required>
+            <button type="submit" class="btn btn-primary">Подписаться</button>
+          </form>
+        </section>
+      </aside>
+    </main>
+
+    <footer>
+      <p><small>&copy; 2025 Компания «Зоопарк». Все права защищены.</small></p>
+    </footer>
+
+    <script>
+      // Прелоадер
+      window.addEventListener('load', function() {
+        const preloader = document.getElementById('preloader');
+        setTimeout(function() {
+          preloader.classList.add('hidden');
+          setTimeout(function() {
+            preloader.style.display = 'none';
+          }, 500);
+        }, 2000);
+      });
+
+      // Анимация появления элементов при скролле
+      const observerOptions = {
+        threshold: 0.1,
+        rootMargin: '0px 0px -50px 0px'
+      };
+
+      const observer = new IntersectionObserver(function(entries) {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+          }
+        });
+      }, observerOptions);
+
+      // Наблюдаем за элементами с классом fade-in-scroll
+      document.querySelectorAll('.fade-in-scroll').forEach(el => {
+        observer.observe(el);
+      });
+    </script>
+  </body>
+  </html>

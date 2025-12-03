@@ -1,0 +1,609 @@
+/* Компоненты и специфичные стили */
+
+/* Логотип с трансформацией */
+.logo {
+  transform: rotate(5deg) scale(1.1);
+  transition: var(--transition);
+}
+
+.logo:hover {
+  transform: rotate(0deg) scale(1.2);
+}
+
+/* Партнеры - круглые блоки */
+.partners {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  flex-wrap: wrap;
+  margin: 2rem 0;
+}
+
+.partner-item {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--secondary-color), var(--primary-color));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: var(--shadow);
+  transition: var(--transition);
+  position: relative;
+  overflow: hidden;
+}
+
+.partner-item::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: linear-gradient(45deg, transparent, rgba(255,255,255,0.1), transparent);
+  transform: rotate(45deg);
+  transition: var(--transition);
+}
+
+.partner-item:hover {
+  transform: translateY(-10px) scale(1.05);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+}
+
+.partner-item:hover::before {
+  animation: shimmer 1s ease-in-out;
+}
+
+@keyframes shimmer {
+  0% { transform: translateX(-100%) translateY(-100%) rotate(45deg); }
+  100% { transform: translateX(100%) translateY(100%) rotate(45deg); }
+}
+
+.partner-item img {
+  width: 80%;
+  height: 80%;
+  object-fit: contain;
+  border-radius: 50%;
+}
+
+/* Названия компаний */
+.partner-name {
+  font-family: 'Inter', sans-serif;
+  font-weight: 600;
+  font-size: 1rem;
+  text-align: center;
+  margin-top: 1rem;
+  letter-spacing: 2px;         /* Кернинг - увеличен для красоты */
+  text-transform: uppercase;
+  color: var(--primary-color);
+  line-height: 1.5;            /* Межстрочный интервал */
+  word-spacing: 0.1em;         /* Интервал между словами */
+}
+
+/* Последняя статья - позиционирование */
+.article-container {
+  position: relative;
+  background: var(--white);
+  border-radius: 10px;
+  padding: 2rem;
+  box-shadow: var(--shadow);
+  margin: 2rem 0;
+  border-left: 5px solid var(--primary-color);
+}
+
+.article-container h2 {
+  color: var(--primary-color);
+  margin-bottom: 1.5rem;
+  font-size: 1.8rem;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}
+
+/* Сертификат */
+.certificate {
+  /* Градиентный фон для сертификата */
+  background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+  border: 8px solid transparent;
+  
+  /* Вендорные префиксы для border-image */
+  -webkit-border-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="120" height="120"><defs><pattern id="bord" patternUnits="userSpaceOnUse" width="120" height="120"><path d="M0,0 L120,0 L120,120 L0,120 Z" fill="none" stroke="%23c12224" stroke-width="4" opacity="0.6"/><path d="M20,20 L100,20 L100,100 L20,100 Z" fill="none" stroke="%231e3a8a" stroke-width="2" opacity="0.6"/></pattern></defs><rect width="120" height="120" fill="url(%23bord)"/></svg>') 8;
+  -moz-border-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="120" height="120"><defs><pattern id="bord" patternUnits="userSpaceOnUse" width="120" height="120"><path d="M0,0 L120,0 L120,120 L0,120 Z" fill="none" stroke="%23c12224" stroke-width="4" opacity="0.6"/><path d="M20,20 L100,20 L100,100 L20,100 Z" fill="none" stroke="%231e3a8a" stroke-width="2" opacity="0.6"/></pattern></defs><rect width="120" height="120" fill="url(%23bord)"/></svg>') 8;
+  -o-border-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="120" height="120"><defs><pattern id="bord" patternUnits="userSpaceOnUse" width="120" height="120"><path d="M0,0 L120,0 L120,120 L0,120 Z" fill="none" stroke="%23c12224" stroke-width="4" opacity="0.6"/><path d="M20,20 L100,20 L100,100 L20,100 Z" fill="none" stroke="%231e3a8a" stroke-width="2" opacity="0.6"/></pattern></defs><rect width="120" height="120" fill="url(%23bord)"/></svg>') 8;
+  border-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="120" height="120"><defs><pattern id="bord" patternUnits="userSpaceOnUse" width="120" height="120"><path d="M0,0 L120,0 L120,120 L0,120 Z" fill="none" stroke="%23c12224" stroke-width="4" opacity="0.6"/><path d="M20,20 L100,20 L100,100 L20,100 Z" fill="none" stroke="%231e3a8a" stroke-width="2" opacity="0.6"/></pattern></defs><rect width="120" height="120" fill="url(%23bord)"/></svg>') 8;
+  
+  padding: 4rem 3rem;
+  text-align: center;
+  position: relative;
+  box-shadow: 0 15px 50px rgba(0, 0, 0, 0.2);
+  margin: 2rem auto;
+  max-width: 800px;
+  z-index: 1;
+}
+
+/* Фоновое изображение (текстура сертификата "от руки") с z-index */
+.certificate::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: url('../images/sertificate.png');
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  opacity: 0.15; 
+  z-index: -1;
+  pointer-events: none;
+}
+
+.certificate h2 {
+  font-size: 2.5rem;
+  color: var(--primary-color);
+  margin-bottom: 1rem;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.certificate .subtitle {
+  font-size: 1.5rem;
+  color: var(--secondary-color);
+  font-weight: 600;
+  margin-bottom: 2rem;
+}
+
+.certificate .certificate-title {
+  font-size: 3rem;
+  color: #dc3545;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  margin: 2rem 0;
+  text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.2);
+}
+
+.certificate .company-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-top: 3rem;
+  font-size: 1.1rem;
+  position: relative;
+  z-index: 2;
+}
+
+/* Выравнивание текста в сертификате */
+.certificate .text-left {
+  text-align: left;
+  margin-bottom: 1rem;
+}
+
+.certificate .text-right {
+  text-align: right;
+  margin-bottom: 1rem;
+}
+
+.certificate .text-center {
+  text-align: center;
+}
+
+/* Разные размеры и цвета шрифтов для сертификата */
+.certificate-header {
+  font-size: 1.2rem;
+  color: #333;
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+}
+
+.certificate-body {
+  font-size: 1.1rem;
+  color: #000;
+  font-weight: 700;
+  line-height: 1.6;
+}
+
+.certificate-footer {
+  font-size: 0.9rem;
+  color: #666;
+  margin-top: 2rem;
+}
+
+/* История по годам */
+.history-list {
+  list-style: none;
+  counter-reset: year-counter;
+  margin: 0;
+  padding: 0;
+}
+
+.history-list li {
+  counter-increment: year-counter;
+  position: relative;
+  margin-bottom: 1.5rem;
+  padding: 1rem 1rem 1rem 3rem;
+  background: var(--white);
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  border-left: 4px solid var(--secondary-color);
+}
+
+.history-list li:nth-child(odd) {
+  background: rgba(44, 85, 48, 0.05);
+}
+
+.history-list li::before {
+  content: counter(year-counter);
+  position: absolute;
+  left: -1.5rem;
+  top: 50%;
+  transform: translateY(-50%);
+  background: var(--primary-color);
+  color: var(--white);
+  width: 2rem;
+  height: 2rem;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  font-size: 0.9rem;
+  border: 2px solid var(--white);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.history-list li time {
+  font-weight: bold;
+  color: var(--primary-color);
+  font-size: 1.1rem;
+}
+
+/* Пример четверостишия */
+.poem-section {
+  background: linear-gradient(135deg, rgba(44, 85, 48, 0.05), rgba(74, 124, 89, 0.05));
+  border-radius: 15px;
+  padding: 2rem;
+  margin: 2rem 0;
+  border: 1px solid rgba(44, 85, 48, 0.1);
+}
+
+.poem-section h2 {
+  color: var(--primary-color);
+  text-align: center;
+  margin-bottom: 2rem;
+  font-size: 1.8rem;
+  position: relative;
+}
+
+.poem-section h2::after {
+  content: '';
+  position: absolute;
+  bottom: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60px;
+  height: 3px;
+  background: var(--secondary-color);
+  border-radius: 2px;
+}
+
+.poem-example {
+  margin-bottom: 2rem;
+}
+
+.poem-example p {
+  color: var(--text-color);
+  margin-bottom: 1rem;
+  font-weight: 500;
+}
+
+.poem-pre {
+  background: var(--primary-color);
+  color: var(--white);
+  padding: 1.5rem;
+  border-radius: 10px;
+  font-family: 'Georgia', serif;
+  font-size: 1.1rem;
+  line-height: 1.6;
+  margin: 1rem 0;
+  box-shadow: 0 4px 12px rgba(44, 85, 48, 0.3);
+  position: relative;
+  overflow: hidden;
+}
+
+.poem-pre::before {
+  content: '📝';
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  font-size: 1.2rem;
+  opacity: 0.7;
+}
+
+.poem-pre code {
+  background: none;
+  color: inherit;
+  padding: 0;
+  font-size: inherit;
+  border-radius: 0;
+}
+
+.wbr-example {
+  background: var(--white);
+  border: 2px solid var(--secondary-color);
+  border-radius: 10px;
+  padding: 1.5rem;
+  margin: 1rem 0;
+  font-size: 1.1rem;
+  line-height: 1.8;
+  color: var(--text-color);
+  position: relative;
+}
+
+.wbr-example::before {
+  content: '🔤';
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  font-size: 1.2rem;
+}
+
+.wbr-example wbr {
+  color: var(--secondary-color);
+  font-weight: bold;
+}
+
+/* Реквизиты */
+.requisites-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 20px rgba(44, 85, 48, 0.15);
+  margin: 2rem 0;
+  background: var(--white);
+}
+
+/* Small caps для реквизитов */
+.requisites-table td {
+  font-size: 1rem;
+  color: var(--text-color);
+  font-variant: normal;
+  letter-spacing: normal;
+}
+
+.requisites-table td:first-child {
+  font-variant: small-caps;
+  letter-spacing: 0.05em;
+  font-weight: 600;
+}
+
+.requisites-table caption {
+  font-weight: 600;
+  font-size: 1.3rem;
+  color: var(--primary-color);
+  margin-bottom: 1.5rem;
+  text-align: center;
+  padding: 1rem;
+  background: linear-gradient(135deg, rgba(44, 85, 48, 0.1), rgba(74, 124, 89, 0.1));
+  border-radius: 8px;
+  position: relative;
+}
+
+.requisites-table caption::before {
+  content: '📋';
+  margin-right: 0.5rem;
+  font-size: 1.2rem;
+}
+
+.requisites-table th,
+.requisites-table td {
+  padding: 1.2rem 1.5rem;
+  text-align: left;
+  border-bottom: 1px solid rgba(44, 85, 48, 0.1);
+  vertical-align: middle;
+}
+
+.requisites-table th {
+  background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+  color: var(--white);
+  font-weight: 600;
+  font-size: 1.1rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  position: relative;
+}
+
+.requisites-table th:first-child {
+  border-top-left-radius: 12px;
+}
+
+.requisites-table th:last-child {
+  border-top-right-radius: 12px;
+}
+
+.requisites-table tbody tr:nth-child(even) {
+  background: rgba(44, 85, 48, 0.03);
+}
+
+.requisites-table tbody tr:hover {
+  background: rgba(44, 85, 48, 0.08);
+  transition: all 0.3s ease;
+  transform: translateY(-1px);
+  box-shadow: 0 2px 8px rgba(44, 85, 48, 0.1);
+}
+
+.requisites-table tbody tr:last-child td:first-child {
+  border-bottom-left-radius: 12px;
+}
+
+.requisites-table tbody tr:last-child td:last-child {
+  border-bottom-right-radius: 12px;
+}
+
+.requisites-table abbr {
+  text-decoration: underline;
+  text-decoration-color: var(--secondary-color);
+  text-decoration-thickness: 2px;
+  cursor: help;
+  font-weight: 500;
+  color: var(--primary-color);
+}
+
+.requisites-table td:last-child {
+  font-weight: 500;
+  color: var(--primary-color);
+}
+
+/* Медиа элементы */
+.media-container {
+  display: flex;
+  gap: 2rem;
+  margin: 2rem 0;
+  flex-wrap: wrap;
+}
+
+/* Стили для медиа элементов */
+.media-container video,
+.media-container audio {
+  border-radius: 10px;
+  box-shadow: var(--shadow);
+  border: 3px solid var(--secondary-color);
+  background: linear-gradient(135deg, rgba(44, 85, 48, 0.05), rgba(74, 124, 89, 0.05));
+  transition: var(--transition);
+}
+
+.media-container video {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  margin: 0 auto;
+}
+
+.media-container video:hover {
+  transform: scale(1.02);
+  box-shadow: 0 12px 40px rgba(44, 85, 48, 0.3);
+}
+
+.media-container audio {
+  width: 100%;
+  max-width: 400px;
+  display: block;
+  margin: 0 auto;
+  padding: 1rem;
+}
+
+.media-container audio:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(44, 85, 48, 0.2);
+}
+
+/* Стили для выделения текста */
+::selection {
+  background-color: var(--secondary-color);
+  color: var(--white);
+}
+
+::-moz-selection {
+  background-color: var(--secondary-color);
+  color: var(--white);
+}
+
+/* Первая буква и первая строка */
+article p:first-of-type::first-letter {
+  font-size: 3rem;
+  font-weight: bold;
+  color: var(--primary-color);
+  float: left;
+  line-height: 1;
+  margin: 0.1rem 0.5rem 0 0;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+article p:first-of-type::first-line {
+  font-weight: 600;
+  color: var(--primary-color);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+/* Псевдоэлементы для контента */
+.quote::before {
+  content: '"';
+  font-size: 4rem;
+  color: var(--secondary-color);
+  position: absolute;
+  left: -2rem;
+  top: -1rem;
+  font-family: serif;
+}
+
+.quote::after {
+  content: '"';
+  font-size: 4rem;
+  color: var(--secondary-color);
+  position: absolute;
+  right: -2rem;
+  bottom: -2rem;
+  font-family: serif;
+}
+
+/* Списки с Unicode символами */
+.unicode-list {
+  list-style: none;
+}
+
+.unicode-list li::before {
+  content: '🐾 ';
+  margin-right: 0.5rem;
+}
+
+.unicode-list li:nth-child(2n)::before {
+  content: '🌿 ';
+}
+
+.unicode-list li:nth-child(3n)::before {
+  content: '🦋 ';
+}
+
+/* Курсор для кнопок */
+button,
+.button {
+  cursor: pointer;
+}
+
+button:hover,
+.button:hover {
+  cursor: grab;
+}
+
+button:active,
+.button:active {
+  cursor: grabbing;
+}
+
+/* Анимации */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.fade-in {
+  animation: fadeIn 0.6s ease-out;
+}
+
+@keyframes slideIn {
+  from { transform: translateX(-100%); }
+  to { transform: translateX(0); }
+}
+
+.slide-in {
+  animation: slideIn 0.8s ease-out;
+}
+
+/* Вендорные префиксы для границ */
+.certificate {
+  -webkit-border-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="60" height="60"><defs><pattern id="border" patternUnits="userSpaceOnUse" width="60" height="60"><path d="M0,0 L60,0 L60,60 L0,60 Z" fill="none" stroke="%232c5530" stroke-width="3"/></pattern></defs><rect width="60" height="60" fill="url(%23border)"/></svg>') 15;
+  -moz-border-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="60" height="60"><defs><pattern id="border" patternUnits="userSpaceOnUse" width="60" height="60"><path d="M0,0 L60,0 L60,60 L0,60 Z" fill="none" stroke="%232c5530" stroke-width="3"/></pattern></defs><rect width="60" height="60" fill="url(%23border)"/></svg>') 15;
+  -o-border-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="60" height="60"><defs><pattern id="border" patternUnits="userSpaceOnUse" width="60" height="60"><path d="M0,0 L60,0 L60,60 L0,60 Z" fill="none" stroke="%232c5530" stroke-width="3"/></pattern></defs><rect width="60" height="60" fill="url(%23border)"/></svg>') 15;
+  border-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="60" height="60"><defs><pattern id="border" patternUnits="userSpaceOnUse" width="60" height="60"><path d="M0,0 L60,0 L60,60 L0,60 Z" fill="none" stroke="%232c5530" stroke-width="3"/></pattern></defs><rect width="60" height="60" fill="url(%23border)"/></svg>') 15;
+}
